@@ -6,7 +6,7 @@ class Problems(models.Model):
     problemStatement = models.CharField(max_length=500)
     ProblemName = models.CharField(max_length=50)
     UserCode = models.CharField(max_length=10000)
-    ProblemDifficulty = models.CharField(max_length=500)
+    ProblemDifficulty = models.CharField(max_length=100)
 class Solutions(models.Model):
     problem = models.ForeignKey(Problems, on_delete=models.CASCADE)
     verdict = models.CharField(max_length=300)

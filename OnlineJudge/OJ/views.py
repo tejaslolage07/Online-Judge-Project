@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Problems, Solutions, Test_cases
 
 # Create your views here.
 ''' Will have a view for 
@@ -14,7 +15,9 @@ def login_signup(request):
     return HttpResponse("You are at the Login/signup page.")
 
 def ProblemsList(request):
-    return HttpResponse("You are at the Problems list page.")
+    ProblemList = Problems.objects.order_by('ProblemDifficulty')
+    output = ', '.join([q.problem.ProblemName for q in ProblemList])
+    return HttpResponse(output)
 
 def ProblemDetails(request, problem_id):
     return HttpResponse("You are at the details page of problem %s" % problem_id)
