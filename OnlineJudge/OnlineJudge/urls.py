@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from OJ import views
 
+app_name = 'Scalable Online Judge'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login_signup, name="Login"),

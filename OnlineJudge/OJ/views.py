@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from .models import Problems, Solutions, Test_cases
 
 # Create your views here.
@@ -16,8 +16,12 @@ def login_signup(request):
 
 def ProblemsList(request):
     ProblemList = Problems.objects.order_by('ProblemDifficulty')
-    output = ', '.join([q.problem.ProblemName for q in ProblemList])
-    return HttpResponse(output)
+    # template = loader.get_template('OJ/index.html')
+    # context = {
+    #     ProblemList
+    # }
+    # output = ', '.join([q.problem.ProblemName for q in ProblemList])
+    return render(request, 'Oj/index.html')
 
 def ProblemDetails(request, problem_id):
     return HttpResponse("You are at the details page of problem %s" % problem_id)
