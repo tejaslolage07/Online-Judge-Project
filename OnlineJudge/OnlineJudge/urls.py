@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from OJ import views
 
-app_name = 'Scalable Online Judge'
+app_name = 'OJ'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.login_signup, name="Login"),
-    path('problems/', views.ProblemsList, name="Problems"),
-    path('problems/<int:problem_id>/', views.ProblemDetails, name="Details"),
-    path('problems/<int:problem_id>/code', views.CodeSubmission, name="Code"),
-    path('problems/<int:problem_id>/code/verdict', views.JudgeVerdict, name="Verdict"),
+    path('', views.login_signup.as_view(), name="Login"),
+    path('problems/', views.ProblemsList.as_view(), name="Problems"),
+    path('problems/<int:pk>/', views.ProblemDetails.as_view(), name="Details"),
+    path('problems/<int:pk>/code/', views.CodeSubmission.as_view(), name="Code"),
+    path('problems/<int:pk>/code/verdict/', views.JudgeVerdict.as_view(), name="Verdict"),
 ]

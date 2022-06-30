@@ -53,8 +53,7 @@
         <ul>
     {% for problem in ProblemList %}
     <ul><strong>{{ problem.problemName }}</strong></ul>
-    <li>Difficulty: {{ problem.problemDifficulty }}</li>
-    <li>Problem Statement: {{ problem.problemStatement }}</li>
+        <div align="right">Difficulty: {{ problem.problemDifficulty }}</div>
     <br/>
     {% endfor %}
         {% endblock %}
