@@ -60,15 +60,15 @@ class ProblemDetails(generic.DetailView):
     
 class CodeSubmission(generic.DetailView):
     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
-    template_name = 'OJ/codeSubmission.html'
+    model = Problems
     context_object_name = 'problem'
-    model = Solutions
+    template_name = 'OJ/codeSubmission.html'
 
     
 
 class JudgeVerdict(generic.DetailView):
     # return HttpResponse("You are at the Judge verdict page for problem %s" % problem_id)
-
-    template_name = 'OJ/judgeVerdict.html'
     model = Solutions
+    context_object_name = 'problem'
+    template_name = 'OJ/judgeVerdict.html'
     

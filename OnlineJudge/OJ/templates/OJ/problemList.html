@@ -53,7 +53,7 @@
         <ul>
     {% for problem in ProblemList %}
     <ul><strong><a href="{% url 'Details' problem.id %}" class="link-primary">{{ problem.problemName }}</a></strong></ul>
-        <div align="right">Difficulty: {{ problem.problemDifficulty }}</div>
+        <div align="left">Difficulty: {{ problem.problemDifficulty }}</div>
     <br/>
     {% endfor %}
         {% endblock %}
