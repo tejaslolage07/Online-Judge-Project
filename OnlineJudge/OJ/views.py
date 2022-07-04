@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from .models import Problems, Solutions, Test_cases
+from .models import Problem, Solution, TestCase
 from django.views import generic
 from django.urls import reverse
 
@@ -15,14 +15,14 @@ from django.urls import reverse
 
 # Using generic views:
 
-class login_signup(generic.DetailView):
+class Login(generic.DetailView):
     # return HttpResponse("You are at the Login/signup page.")
     template_name = 'OJ/login.html'
     context_object_name = 'login'
 
 
 class ProblemsList(generic.ListView):
-    ProblemList = Problems.objects.order_by('problemDifficulty')
+    ProblemList = Problem.objects.order_by('problemDifficulty')
     # template = loader.get_template('OJ/index.html')
     # context = {
     #     ProblemList
@@ -36,7 +36,7 @@ class ProblemsList(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Problems.objects.order_by('problemDifficulty')
+        return Problem.objects.order_by('problemDifficulty')
 
 class ProblemDetails(generic.DetailView):
     
@@ -52,23 +52,25 @@ class ProblemDetails(generic.DetailView):
     # # return render(request, 'OJ/problemDetails.html', {'problem': problem})
     # return HttpResponse("You are at the details page of problem %s" % problem_id)
 
-    model = Problems
+    model = Problem
     context_object_name = 'problem' # This means you can change the object name (the current instance (problem_id)) to some other name. The orignal is object.
     template_name = 'OJ/problemDetails.html'
 
+class JudgeVerdict(generic.DetailView):
+    # return HttpResponse("You are at the Judge verdict page for problem %s" % problem_id)
+    model = Solution
+    context_object_name = 'problem'
+    template_name = 'OJ/judgeVerdict.html'
 
     
 class CodeSubmission(generic.DetailView):
     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
-    model = Problems
+    
+    
+    
+    model = Problem
     context_object_name = 'problem'
     template_name = 'OJ/codeSubmission.html'
 
     
 
-class JudgeVerdict(generic.DetailView):
-    # return HttpResponse("You are at the Judge verdict page for problem %s" % problem_id)
-    model = Solutions
-    context_object_name = 'problem'
-    template_name = 'OJ/judgeVerdict.html'
-    

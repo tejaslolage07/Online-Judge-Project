@@ -20,7 +20,7 @@ from OJ import views
 app_name = 'OJ'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.login_signup.as_view(), name="Login"),
+    path('', views.Login.as_view(), name="Login"),
     path('problems/', views.ProblemsList.as_view(), name="Problems"),
     path('problems/<int:pk>/', views.ProblemDetails.as_view(), name="Details"),
     path('problems/<int:pk>/code/', views.CodeSubmission.as_view(), name="Code"),
