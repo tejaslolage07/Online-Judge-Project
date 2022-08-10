@@ -62,20 +62,27 @@
             </div>
         </nav>
 
-        <div id="compiler">
-            <select class="form-select" aria-label="Default select example">
-            <option selected>Choose compiler</option>
-            <option value="1">GNU G++ 17</option>
-            <option value="2">Java</option>
-            <option value="3">Python</option>
-          </select>
-        </div>
-          <div id = "inputCode" class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Write your code here:</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="22"></textarea>
-          </div>
-          <a role="button" id = "submit" href="{% url 'Verdict' problem.id %}" class="btn btn-success" >Submit</a>
+        <form>
+            <div class="mb-3" id="compiler">
+                <!-- <label for="exampleInputEmail1" class="form-label">Choose compiler</label> -->
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Choose compiler</option>
+                    <option value="1">GNU G++ 17</option>
+                    <option value="2">Java</option>
+                    <option value="3">Python</option></select>
+            </div>
+            <div id="inputCode" class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Write
+                    your code here:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1"
+                    rows="22"></textarea>
+            </div>
+            <!-- <a role="button" id="submit" href="{% url 'Verdict' problem.id %}" class="btn btn-success" >Submit</a> -->
+        </form>
 
+        <a role="button" id="submit" href="{% url 'Verdict' problem.id %}"
+            class="btn
+            btn-success">Submit</a>
 
         <!-- Optional JavaScript; choose one of the two! -->
 

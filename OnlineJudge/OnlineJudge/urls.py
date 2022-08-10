@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path
 from OJ import views
 
-app_name = 'OJ'
+# app_name = 'OJ'
+# path('', include(('OJ.urls', 'OJ'), namespace='OJ'))
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Login.as_view(), name="Login"),
     path('problems/', views.ProblemsList.as_view(), name="Problems"),
     path('problems/<int:pk>/', views.ProblemDetails.as_view(), name="Details"),
     path('problems/<int:pk>/code/', views.CodeSubmission.as_view(), name="Code"),
-    path('problems/<int:pk>/code/verdict/', views.JudgeVerdict.as_view(), name="Verdict"),
+    path('problems/<int:pk>/code/verdict/',
+         views.JudgeVerdict.as_view(), name="Verdict"),
 ]

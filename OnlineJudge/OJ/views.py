@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404
 from .models import Problem, Solution, TestCase
 from django.views import generic
 from django.urls import reverse
+from django import forms
 
 # Create your views here.
 ''' Will have a view for 
@@ -15,8 +16,9 @@ from django.urls import reverse
 
 # Using generic views:
 
-class Login(generic.DetailView):
+class Login(generic.ListView):
     # return HttpResponse("You are at the Login/signup page.")
+    model = Problem
     template_name = 'OJ/login.html'
     context_object_name = 'login'
 
@@ -58,19 +60,30 @@ class ProblemDetails(generic.DetailView):
 
 class JudgeVerdict(generic.DetailView):
     # return HttpResponse("You are at the Judge verdict page for problem %s" % problem_id)
-    model = Solution
-    context_object_name = 'problem'
+    model = Problem
+    context_object_name = 'Verdict'
     template_name = 'OJ/judgeVerdict.html'
 
     
 class CodeSubmission(generic.DetailView):
     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
     
-    
-    
     model = Problem
     context_object_name = 'problem'
     template_name = 'OJ/codeSubmission.html'
 
     
+# class CodeSubmission(forms.Form):
+#     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
+    
+#     model = Problem
+#     context_object_name = 'problem'
+#     template_name = 'OJ/codeSubmission.html'
+#     compiler = forms.Select()
+#     userCode  = forms.CharField(label="Enter the code here", max_length = 10000)
+    
 
+# from OJ.codeSubmissionForm import CodeSubmission
+# def codeSubmission(request, pk):
+#     form = CodeSubmission()
+#     return render(request, "OJ/codeSubmission.html", {'form' : form})
