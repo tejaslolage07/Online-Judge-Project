@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from .models import Problem, Solution, TestCase
+from .models import Problem, UserSubmission, TestCase
 from django.views import generic
 from django.urls import reverse
 from django import forms
@@ -24,9 +24,6 @@ from .codeSubmissionForm import CodeSubmission
 #     template_name = 'OJ/login.html'
 #     context_object_name = 'login'
 
-def Login(request):
-    # return HttpResponse("You are looking at problem %s" %id)
-    return render(request, "OJ/login.html")
 
 
 # class ProblemsList(generic.ListView):
@@ -46,14 +43,6 @@ def Login(request):
 #         """Return the last five published questions."""
 #         return Problem.objects.order_by('problemDifficulty')
 
-def problemsList(request):
-    # problem_list = Problem.objects.order_by('problemDifficulty')
-    try:
-        # try_problem = Problem.objects.get(pk=1)
-        problem_list = Problem.objects.order_by('problemDifficulty')
-    except Problem.DoesNotExist:
-        raise Http404("Question does not exist")
-    return render(request, 'OJ/problemList.html', {'problem_list' : problem_list})
 
 
 # class ProblemDetails(generic.DetailView):
@@ -74,9 +63,6 @@ def problemsList(request):
 #     context_object_name = 'problem' # This means you can change the object name (the current instance (problem_id)) to some other name. The orignal is object.
 #     template_name = 'OJ/problemDetails.html'
 
-def problemDetails(request, id):
-    problem = get_object_or_404(Problem, pk=id)
-    return render(request, "OJ/problemDetails.html", {'problem' : problem})
 
 # class JudgeVerdict(generic.DetailView):
 #     # return HttpResponse("You are at the Judge verdict page for problem %s" % problem_id)
@@ -84,9 +70,6 @@ def problemDetails(request, id):
 #     context_object_name = 'Verdict'
 #     template_name = 'OJ/judgeVerdict.html'
 
-
-def judgeVerdict(request, id):
-    return render(request, "OJ/judgeVerdict.html")
 
     
 # class CodeSubmission(generic.DetailView):
@@ -108,7 +91,6 @@ def judgeVerdict(request, id):
     
 
 # from OJ.codeSubmissionForm import CodeSubmission
-def codeSubmission(request, id):
     # if request.method == "POST":
     #     form = CodeSubmission(request.POST)
     #     if form.is_valid():
@@ -123,4 +105,29 @@ def codeSubmission(request, id):
     # return render(request, "OJ/codeSubmission.html", {'form' : form})
 
 
+
+
+def Login(request):
+    return render(request, "OJ/login.html")
+
+
+def problemsList(request):
+    try:
+        # try_problem = Problem.objects.get(pk=1)
+        problem_list = Problem.objects.order_by('problemDifficulty')
+    except Problem.DoesNotExist:
+        raise Http404("Question does not exist")
+    return render(request, 'OJ/problemList.html', {'problem_list' : problem_list})
+
+
+def problemDetails(request, id):
+    problem = get_object_or_404(Problem, pk=id)
+    return render(request, "OJ/problemDetails.html", {'problem' : problem})
+
+
+def judgeVerdict(request, id):
+    return render(request, "OJ/judgeVerdict.html")
+
+
+def codeSubmission(request, id):
     return render(request, 'OJ/codeSubmission.html')

@@ -8,9 +8,9 @@ class Problem(models.Model):
     problemDifficulty = models.CharField(max_length=100)
 
 
-class Solution(models.Model):
+class UserSubmission(models.Model):
 # class Submission(models.Model):
-    # userID = models.IntegerField()
+    userID = models.IntegerField()
     userCode = models.CharField(max_length=10000)
     verdict = models.CharField(max_length=300)
     submitted_at = models.DateTimeField("time of submission")
