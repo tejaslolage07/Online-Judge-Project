@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .models import Problem, Solution, TestCase
 from django.views import generic
@@ -29,40 +29,54 @@ def Login(request):
     return render(request, "OJ/login.html")
 
 
-class ProblemsList(generic.ListView):
-    ProblemList = Problem.objects.order_by('problemDifficulty')
-    # template = loader.get_template('OJ/index.html')
-    # context = {
-    #     ProblemList
-    # }
-    # output = ', '.join([q.problem.ProblemName for q in ProblemList])
+# class ProblemsList(generic.ListView):
+#     ProblemList = Problem.objects.order_by('problemDifficulty')
+#     # template = loader.get_template('OJ/index.html')
+#     # context = {
+#     #     ProblemList
+#     # }
+#     # output = ', '.join([q.problem.ProblemName for q in ProblemList])
     
-    # return render(request, 'OJ/problemList.html', {'ProblemList': ProblemList})
+#     # return render(request, 'OJ/problemList.html', {'ProblemList': ProblemList})
 
-    template_name = 'OJ/problemList.html'
-    context_object_name = 'ProblemList'
+#     template_name = 'OJ/problemList.html'
+#     context_object_name = 'ProblemList'
 
-    def get_queryset(self):
-        """Return the last five published questions."""
-        return Problem.objects.order_by('problemDifficulty')
+#     def get_queryset(self):
+#         """Return the last five published questions."""
+#         return Problem.objects.order_by('problemDifficulty')
 
-class ProblemDetails(generic.DetailView):
+def problemsList(request):
+    # problem_list = Problem.objects.order_by('problemDifficulty')
+    try:
+        # try_problem = Problem.objects.get(pk=1)
+        problem_list = Problem.objects.order_by('problemDifficulty')
+    except Problem.DoesNotExist:
+        raise Http404("Question does not exist")
+    return render(request, 'OJ/problemList.html', {'problem_list' : problem_list})
+
+
+# class ProblemDetails(generic.DetailView):
     
-    # def get_queryset(self):
-    #     problem_id = int(self.kwargs['id'])
-    #     # queryset = Problems.objects.filter(id=problem_id)
-    #     return problem_id
+#     # def get_queryset(self):
+#     #     problem_id = int(self.kwargs['id'])
+#     #     # queryset = Problems.objects.filter(id=problem_id)
+#     #     return problem_id
 
-    # try:
-    #     problem = Problems.objects.get(pk=problem_id)
-    # except Problems.DoesNotExist:
-    #     raise Http404("Problem does not exist")
-    # # return render(request, 'OJ/problemDetails.html', {'problem': problem})
-    # return HttpResponse("You are at the details page of problem %s" % problem_id)
+#     # try:
+#     #     problem = Problems.objects.get(pk=problem_id)
+#     # except Problems.DoesNotExist:
+#     #     raise Http404("Problem does not exist")
+#     # # return render(request, 'OJ/problemDetails.html', {'problem': problem})
+#     # return HttpResponse("You are at the details page of problem %s" % problem_id)
 
-    model = Problem
-    context_object_name = 'problem' # This means you can change the object name (the current instance (problem_id)) to some other name. The orignal is object.
-    template_name = 'OJ/problemDetails.html'
+#     model = Problem
+#     context_object_name = 'problem' # This means you can change the object name (the current instance (problem_id)) to some other name. The orignal is object.
+#     template_name = 'OJ/problemDetails.html'
+
+def problemDetails(request, id):
+    problem = get_object_or_404(Problem, pk=id)
+    return render(request, "OJ/problemDetails.html", {'problem' : problem})
 
 # class JudgeVerdict(generic.DetailView):
 #     # return HttpResponse("You are at the Judge verdict page for problem %s" % problem_id)

@@ -64,15 +64,13 @@
 
         <div class="container">
             <h1 class="text-center my-2">Problem List</h1>
-            <!-- {% block content %} -->
             <ul>
-                {% for problem in ProblemList %}
+                {% for problem in problem_list %}
                 <ul><strong><a href="{% url 'Details' problem.id %}"
                             class="link-primary">{{ problem.problemName }}</a></strong></ul>
                 <div align="left">Difficulty: {{ problem.problemDifficulty }}</div>
                 <br/>
                     {% endfor %}
-                    {% endblock %}
                 </ul>
             </div>
 

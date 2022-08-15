@@ -22,8 +22,8 @@ from OJ import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Login, name="Login"),
-    path('problems/', views.ProblemsList.as_view(), name="Problems"),
-    path('problems/<int:pk>/', views.ProblemDetails.as_view(), name="Details"),
+    path('problems/', views.problemsList, name="Problems"),
+    path('problems/<int:id>/', views.problemDetails, name="Details"),
     path('problems/<int:id>/code/', views.codeSubmission, name="Code"),
     path('problems/<int:id>/code/verdict/',
          views.judgeVerdict, name="Verdict"),
