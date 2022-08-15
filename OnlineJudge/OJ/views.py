@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .models import Problem, Solution, TestCase
 from django.views import generic
 from django.urls import reverse
 from django import forms
+from .codeSubmissionForm import CodeSubmission
+# from .forms import NameForm
 
 # Create your views here.
 ''' Will have a view for 
@@ -16,11 +18,15 @@ from django import forms
 
 # Using generic views:
 
-class Login(generic.ListView):
-    # return HttpResponse("You are at the Login/signup page.")
-    model = Problem
-    template_name = 'OJ/login.html'
-    context_object_name = 'login'
+# class Login(generic.ListView):
+#     # return HttpResponse("You are at the Login/signup page.")
+#     model = Problem
+#     template_name = 'OJ/login.html'
+#     context_object_name = 'login'
+
+def Login(request):
+    # return HttpResponse("You are looking at problem %s" %id)
+    return render(request, "OJ/login.html")
 
 
 class ProblemsList(generic.ListView):
@@ -58,19 +64,23 @@ class ProblemDetails(generic.DetailView):
     context_object_name = 'problem' # This means you can change the object name (the current instance (problem_id)) to some other name. The orignal is object.
     template_name = 'OJ/problemDetails.html'
 
-class JudgeVerdict(generic.DetailView):
-    # return HttpResponse("You are at the Judge verdict page for problem %s" % problem_id)
-    model = Problem
-    context_object_name = 'Verdict'
-    template_name = 'OJ/judgeVerdict.html'
+# class JudgeVerdict(generic.DetailView):
+#     # return HttpResponse("You are at the Judge verdict page for problem %s" % problem_id)
+#     model = Problem
+#     context_object_name = 'Verdict'
+#     template_name = 'OJ/judgeVerdict.html'
+
+
+def judgeVerdict(request, id):
+    return render(request, "OJ/judgeVerdict.html")
 
     
-class CodeSubmission(generic.DetailView):
-    # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
+# class CodeSubmission(generic.DetailView):
+#     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
     
-    model = Problem
-    context_object_name = 'problem'
-    template_name = 'OJ/codeSubmission.html'
+#     model = Problem
+#     context_object_name = 'problem'
+#     template_name = 'OJ/codeSubmission.html'
 
     
 # class CodeSubmission(forms.Form):
@@ -84,6 +94,19 @@ class CodeSubmission(generic.DetailView):
     
 
 # from OJ.codeSubmissionForm import CodeSubmission
-# def codeSubmission(request, pk):
-#     form = CodeSubmission()
-#     return render(request, "OJ/codeSubmission.html", {'form' : form})
+def codeSubmission(request, id):
+    # if request.method == "POST":
+    #     form = CodeSubmission(request.POST)
+    #     if form.is_valid():
+    #         return HttpResponseRedirect('problems/<int:id>/code/verdict/')
+    #     else:
+    #         form = CodeSubmission()
+
+    #     return render(request, 'codeSubmission.html', {'form': form})
+    
+
+    # form = CodeSubmission()
+    # return render(request, "OJ/codeSubmission.html", {'form' : form})
+
+
+    return render(request, 'OJ/codeSubmission.html')

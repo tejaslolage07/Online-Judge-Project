@@ -9,7 +9,7 @@ class CodeSubmission(forms.Form):
     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
     
     # model = Problem
-    context_object_name = 'problem'
+    # context_object_name = 'problem'
     # template_name = 'OJ/codeSubmission.html'
     compiler = forms.Select()
     userCode  = forms.CharField(label="Enter the code here", max_length = 10000)

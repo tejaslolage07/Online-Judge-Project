@@ -62,7 +62,7 @@
             </div>
         </nav>
 
-        <form>
+        <form action="/problems/1/code/verdict/" method="post">
             <div class="mb-3" id="compiler">
                 <!-- <label for="exampleInputEmail1" class="form-label">Choose compiler</label> -->
                 <select class="form-select" aria-label="Default select example">
@@ -74,15 +74,18 @@
             <div id="inputCode" class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Write
                     your code here:</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1"
-                    rows="22"></textarea>
-            </div>
-            <!-- <a role="button" id="submit" href="{% url 'Verdict' problem.id %}" class="btn btn-success" >Submit</a> -->
+                    <!-- <input id="your_name" type="text" name="your_name" value="{{ current_name }}"> -->
+                <!-- <textarea class="form-control" id="exampleFormControlTextarea1" -->
+
+                    <input id="Codetextarea" type="textarea" name="your_code" value="{{ userCode }}">
+                    
+                </div>
+                <div><textarea cols="130" rows="20">Type your text here:</textarea></div>
+            
+            <input role="button" id="submit" class="btn btn-success" type="submit" value="Submit">
         </form>
 
-        <a role="button" id="submit" href="{% url 'Verdict' problem.id %}"
-            class="btn
-            btn-success">Submit</a>
+        
 
         <!-- Optional JavaScript; choose one of the two! -->
 
