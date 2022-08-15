@@ -4,7 +4,7 @@ from .models import Problem, UserSubmission, TestCase
 from django.views import generic
 from django.urls import reverse
 from django import forms
-from .codeSubmissionForm import CodeSubmission
+from .forms import CodeSubmission
 from django.views.decorators.csrf import csrf_protect, requires_csrf_token
 
 # from .forms import NameForm
@@ -145,6 +145,7 @@ def codeSubmission(request, id):
     if request.method == 'POST':
         form = CodeSubmission(request.POST)
         if form.is_valid():
+            form.save()
             userCode = form.cleaned_data['userCode']
             compiler = form.cleaned_data['compiler']
             return HttpResponse("The form is valid. Thanks.")
