@@ -62,29 +62,32 @@
             </div>
         </nav>
 
-        <form action="/problems/1/code/verdict/" method="post">
+        <!-- <form action="http://127.0.0.1:8000/problems/1/code/verdict/" method="post">
+            {% csrf_token %} {{ form }}
             <div class="mb-3" id="compiler">
-                <!-- <label for="exampleInputEmail1" class="form-label">Choose compiler</label> -->
+                <label for="exampleInputEmail1" class="form-label">Choose compiler</label>
                 <select class="form-select" aria-label="Default select example">
-                    <option selected>Choose compiler</option>
-                    <option value="1">GNU G++ 17</option>
+                    <option selected value="1">GNU G++ 17</option>
                     <option value="2">Java</option>
                     <option value="3">Python</option></select>
             </div>
             <div id="inputCode" class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Write
                     your code here:</label>
-                    <!-- <input id="your_name" type="text" name="your_name" value="{{ current_name }}"> -->
-                <!-- <textarea class="form-control" id="exampleFormControlTextarea1" -->
-
+                    {% csrf_token %}
                     <input id="Codetextarea" type="textarea" name="your_code" value="{{ userCode }}">
                     
                 </div>
                 <div><textarea cols="130" rows="20">Type your text here:</textarea></div>
             
             <input role="button" id="submit" class="btn btn-success" type="submit" value="Submit">
-        </form>
+        </form> -->
 
+        <form action = "http://127.0.0.1:8000/problems/1/code/verdict/" method = "post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
         
 
         <!-- Optional JavaScript; choose one of the two! -->

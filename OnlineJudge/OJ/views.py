@@ -5,6 +5,8 @@ from django.views import generic
 from django.urls import reverse
 from django import forms
 from .codeSubmissionForm import CodeSubmission
+from django.views.decorators.csrf import csrf_protect, requires_csrf_token
+
 # from .forms import NameForm
 
 # Create your views here.
@@ -125,10 +127,26 @@ def problemDetails(request, id):
 
 # def codeSubmission(request, id):
     # return render(request, 'OJ/codeSubmission.html')
+# @csrf_protect
+# requires_csrf_token(codeSubmission)
+
+
+# def codeSubmission(request, id):
+#     if request.method == 'POST':
+#         form = CodeSubmission(request.POST)
+#         if form.is_valid():
+#             return HttpResponse("The form is valid. Thanks.")
+#     else:
+#         form = CodeSubmission()
+#     return render(request, 'OJ/codeSubmission.html', {'form' : form})
+
+
 def codeSubmission(request, id):
     if request.method == 'POST':
         form = CodeSubmission(request.POST)
         if form.is_valid():
+            userCode = form.cleaned_data['userCode']
+            compiler = form.cleaned_data['compiler']
             return HttpResponse("The form is valid. Thanks.")
     else:
         form = CodeSubmission()
