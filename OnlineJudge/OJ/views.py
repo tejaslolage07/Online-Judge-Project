@@ -105,8 +105,6 @@ from .codeSubmissionForm import CodeSubmission
     # return render(request, "OJ/codeSubmission.html", {'form' : form})
 
 
-
-
 def Login(request):
     return render(request, "OJ/login.html")
 
@@ -125,9 +123,17 @@ def problemDetails(request, id):
     return render(request, "OJ/problemDetails.html", {'problem' : problem})
 
 
+# def codeSubmission(request, id):
+    # return render(request, 'OJ/codeSubmission.html')
+def codeSubmission(request, id):
+    if request.method == 'POST':
+        form = CodeSubmission(request.POST)
+        if form.is_valid():
+            return HttpResponse("The form is valid. Thanks.")
+    else:
+        form = CodeSubmission()
+    return render(request, 'OJ/codeSubmission.html', {'form' : form})
+
+
 def judgeVerdict(request, id):
     return render(request, "OJ/judgeVerdict.html")
-
-
-def codeSubmission(request, id):
-    return render(request, 'OJ/codeSubmission.html')
