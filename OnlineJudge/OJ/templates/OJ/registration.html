@@ -58,7 +58,12 @@
       </div>
     </nav>
 
-    <h3>Login</h3>
+    <h3>Registration</h3>
+    <form action = "" method = "POST">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- The .as_p just makes the form appear in paragraphs which is a bit nicer to view-->
+        <input type="submit" name="Create User">
+    </form>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

@@ -6,6 +6,7 @@ from django.urls import reverse
 from django import forms
 from .forms import CodeSubmission
 from django.views.decorators.csrf import csrf_protect, requires_csrf_token
+from django.contrib.auth.forms import UserCreationForm
 
 # from .forms import NameForm
 
@@ -107,8 +108,19 @@ from django.views.decorators.csrf import csrf_protect, requires_csrf_token
     # return render(request, "OJ/codeSubmission.html", {'form' : form})
 
 
+def Registration(request):
+    form = UserCreationForm()
+    if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                
+    context = {'form':form}
+    return render(request, 'OJ/registration.html', context)
+
 def Login(request):
-    return render(request, "OJ/login.html")
+    context = {}
+    return render(request, "OJ/login.html", context)
 
 
 def problemsList(request):
@@ -142,15 +154,16 @@ def problemDetails(request, id):
 
 
 def codeSubmission(request, id):
-    if request.method == 'POST':
+    if request.POST:
         form = CodeSubmission(request.POST)
         if form.is_valid():
             form.save()
-            userCode = form.cleaned_data['userCode']
-            compiler = form.cleaned_data['compiler']
+            # userCode = form.cleaned_data['userCode']
+            # compiler = form.cleaned_data['compiler']
             return HttpResponse("The form is valid. Thanks.")
     else:
         form = CodeSubmission()
+        # raise Http404('Your data was not saved')
     return render(request, 'OJ/codeSubmission.html', {'form' : form})
 
 
