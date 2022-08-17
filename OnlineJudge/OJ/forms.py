@@ -5,7 +5,8 @@ from django.views import generic
 from django.urls import reverse
 from django import forms
 from django.forms import ModelForm
-from .models import Problem, UserSubmission, TestCase
+from .models import Problem, UserSubmission, TestCase, userData
+from django.contrib.auth.forms import UserCreationForm
 
 # class CodeSubmission(forms.Form):
 #     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
@@ -22,3 +23,9 @@ class CodeSubmission(ModelForm):
     class Meta:
         model = UserSubmission
         fields = ['compiler', 'userCode']
+
+class Registration(ModelForm):
+    form = UserCreationForm()
+    class Meta:
+        model = userData
+        fields = ['username', 'password']

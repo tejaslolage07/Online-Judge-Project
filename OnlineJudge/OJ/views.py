@@ -4,7 +4,7 @@ from .models import Problem, UserSubmission, TestCase
 from django.views import generic
 from django.urls import reverse
 from django import forms
-from .forms import CodeSubmission
+from .forms import CodeSubmission, Registration
 from django.views.decorators.csrf import csrf_protect, requires_csrf_token
 from django.contrib.auth.forms import UserCreationForm
 
