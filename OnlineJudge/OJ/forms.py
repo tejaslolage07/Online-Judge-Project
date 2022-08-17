@@ -24,8 +24,9 @@ class CodeSubmission(ModelForm):
         model = UserSubmission
         fields = ['compiler', 'userCode']
 
-class Registration(ModelForm):
-    form = UserCreationForm()
+class RegistrationForm(ModelForm):
+    username = forms.TextInput()
+    password = forms.TextInput()
     class Meta:
         model = userData
         fields = ['username', 'password']

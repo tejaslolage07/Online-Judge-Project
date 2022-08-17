@@ -4,7 +4,7 @@ from .models import Problem, UserSubmission, TestCase
 from django.views import generic
 from django.urls import reverse
 from django import forms
-from .forms import CodeSubmission, Registration
+from .forms import CodeSubmission, RegistrationForm
 from django.views.decorators.csrf import csrf_protect, requires_csrf_token
 from django.contrib.auth.forms import UserCreationForm
 
@@ -109,12 +109,11 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 def Registration(request):
-    form = UserCreationForm()
+    form = RegistrationForm()
     if request.method == 'POST':
-            form = UserCreationForm(request.POST)
+            form = RegistrationForm(request.POST)
             if form.is_valid():
-                form.save(username, password)
-                
+                form.save()
     context = {'form':form}
     return render(request, 'OJ/registration.html', context)
 
@@ -154,17 +153,13 @@ def problemDetails(request, id):
 
 
 def codeSubmission(request, id):
-    if request.POST:
-        form = CodeSubmission(request.POST)
-        if form.is_valid():
-            form.save()
-            # userCode = form.cleaned_data['userCode']
-            # compiler = form.cleaned_data['compiler']
-            return HttpResponse("The form is valid. Thanks.")
-    else:
-        form = CodeSubmission()
-        # raise Http404('Your data was not saved')
-    return render(request, 'OJ/codeSubmission.html', {'form' : form})
+    if request.method == 'POST':
+            form = CodeSubmission()
+            if form.is_valid():
+                form.save()
+    context = {'form':form}
+            # return HttpResponse("The form is valid. Thanks.")
+    return render(request, 'OJ/codeSubmission.html', context)
 
 
 def judgeVerdict(request, id):

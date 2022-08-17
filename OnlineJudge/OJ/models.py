@@ -15,7 +15,7 @@ compiler_choices = (
 )
 
 class userData(models.Model):
-    userID = models.IntegerField()
+    # userID = models.IntegerField()
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200)
 
