@@ -21,10 +21,10 @@ class userData(models.Model):
 
 class UserSubmission(models.Model):
 # class Submission(models.Model):
-    userID = models.IntegerField()
+    # userID = models.IntegerField()
     userCode = models.CharField(max_length=10000)
     compiler = models.CharField(max_length=20, choices=compiler_choices, default='Select')
-    verdict = models.CharField(max_length=300)
+    # verdict = models.CharField(max_length=300)
     submitted_at = models.DateTimeField("time of submission")
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
 

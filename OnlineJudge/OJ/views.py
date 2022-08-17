@@ -136,25 +136,10 @@ def problemDetails(request, id):
     return render(request, "OJ/problemDetails.html", {'problem' : problem})
 
 
-# def codeSubmission(request, id):
-    # return render(request, 'OJ/codeSubmission.html')
-# @csrf_protect
-# requires_csrf_token(codeSubmission)
-
-
-# def codeSubmission(request, id):
-#     if request.method == 'POST':
-#         form = CodeSubmission(request.POST)
-#         if form.is_valid():
-#             return HttpResponse("The form is valid. Thanks.")
-#     else:
-#         form = CodeSubmission()
-#     return render(request, 'OJ/codeSubmission.html', {'form' : form})
-
-
 def codeSubmission(request, id):
+    form = CodeSubmission()
     if request.method == 'POST':
-            form = CodeSubmission()
+            form = CodeSubmission(request.POST)
             if form.is_valid():
                 form.save()
     context = {'form':form}
