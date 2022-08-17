@@ -113,7 +113,7 @@ def Registration(request):
     if request.method == 'POST':
             form = UserCreationForm(request.POST)
             if form.is_valid():
-                form.save()
+                form.save(username, password)
                 
     context = {'form':form}
     return render(request, 'OJ/registration.html', context)
