@@ -53,6 +53,10 @@ def loginPage(request):
     context = {}
     return render(request, "OJ/loginTemplate.html", context)
 
+def logoutUser(request):
+    logout(request)
+    return redirect('Login')
+
 
 def problemsList(request):
     try:
