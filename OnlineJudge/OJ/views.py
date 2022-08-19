@@ -46,6 +46,9 @@ def loginPage(request):
         if user is not None:
             login(request, user)
             return redirect('Problems')
+        else:
+            messages.info(request, "The username-password combination does not exist")
+            return redirect("Login")
 
     context = {}
     return render(request, "OJ/loginTemplate.html", context)
