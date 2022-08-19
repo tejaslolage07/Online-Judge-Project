@@ -12,6 +12,8 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.contrib import messages
 
+from django.contrib.auth.decorators import login_required
+
 # from .forms import NameForm
 
 # Create your views here.
@@ -24,40 +26,46 @@ from django.contrib import messages
 '''
 
 def Registration(request):
-    form = RegistrationForm2()
-    if request.method == 'POST':
-        form = RegistrationForm2(request.POST)
-        if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, "Account was created for " + user)
-            return redirect("Login")
-    context = {'form': form}
-    return render(request, 'OJ/registrationTemplate.html', context)
+    if request.user.is_authenticated:
+        return redirect('Problems')
+    else:
+        form = RegistrationForm2()
+        if request.method == 'POST':
+            form = RegistrationForm2(request.POST)
+            if form.is_valid():
+                form.save()
+                user = form.cleaned_data.get('username')
+                messages.success(request, "Account was created for " + user)
+                return redirect("Login")
+        context = {'form': form}
+        return render(request, 'OJ/registrationTemplate.html', context)
 
 
 def loginPage(request):
-    context = {}
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+    if request.user.is_authenticated:
+        return redirect('Problems')
+    else:
+        context = {}
+        if request.method == "POST":
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
 
-        if user is not None:
-            login(request, user)
-            return redirect('Problems')
-        else:
-            messages.info(request, "The username-password combination does not exist")
-            return redirect("Login")
+            if user is not None:
+                login(request, user)
+                return redirect('Problems')
+            else:
+                messages.info(request, "The username-password combination does not exist")
+                return redirect("Login")
+        context = {}
+        return render(request, "OJ/loginTemplate.html", context)
 
-    context = {}
-    return render(request, "OJ/loginTemplate.html", context)
-
+@login_required(login_url = 'Login')
 def logoutUser(request):
     logout(request)
     return redirect('Login')
 
-
+@login_required(login_url = 'Login')
 def problemsList(request):
     try:
         # try_problem = Problem.objects.get(pk=1)
@@ -66,12 +74,12 @@ def problemsList(request):
         raise Http404("Question does not exist")
     return render(request, 'OJ/problemList.html', {'problem_list': problem_list})
 
-
+@login_required(login_url = 'Login')
 def problemDetails(request, id):
     problem = get_object_or_404(Problem, pk=id)
     return render(request, "OJ/problemDetails.html", {'problem': problem})
 
-
+@login_required(login_url = 'Login')
 def codeSubmission(request, id):
     form = CodeSubmission()
     if request.method == 'POST':
@@ -82,6 +90,6 @@ def codeSubmission(request, id):
     # return HttpResponse("The form is valid. Thanks.")
     return render(request, 'OJ/codeSubmission.html', context)
 
-
+@login_required(login_url = 'Login')
 def judgeVerdict(request, id):
     return render(request, "OJ/judgeVerdict.html")
