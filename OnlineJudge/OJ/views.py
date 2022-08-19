@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from .models import Problem, UserSubmission, TestCase, UserData
 from django.views import generic
@@ -7,6 +7,10 @@ from django import forms
 from .forms import CodeSubmission, RegistrationForm, RegistrationForm2
 from django.views.decorators.csrf import csrf_protect, requires_csrf_token
 from django.contrib.auth.forms import UserCreationForm
+
+from django.contrib.auth import authenticate, login, logout
+
+from django.contrib import messages
 
 # from .forms import NameForm
 
@@ -19,97 +23,15 @@ from django.contrib.auth.forms import UserCreationForm
     5. Judge verdict
 '''
 
-# Using generic views:
-
-# class Login(generic.ListView):
-#     # return HttpResponse("You are at the Login/signup page.")
-#     model = Problem
-#     template_name = 'OJ/login.html'
-#     context_object_name = 'login'
-
-
-# class ProblemsList(generic.ListView):
-#     ProblemList = Problem.objects.order_by('problemDifficulty')
-#     # template = loader.get_template('OJ/index.html')
-#     # context = {
-#     #     ProblemList
-#     # }
-#     # output = ', '.join([q.problem.ProblemName for q in ProblemList])
-
-#     # return render(request, 'OJ/problemList.html', {'ProblemList': ProblemList})
-
-#     template_name = 'OJ/problemList.html'
-#     context_object_name = 'ProblemList'
-
-#     def get_queryset(self):
-#         """Return the last five published questions."""
-#         return Problem.objects.order_by('problemDifficulty')
-
-
-# class ProblemDetails(generic.DetailView):
-
-#     # def get_queryset(self):
-#     #     problem_id = int(self.kwargs['id'])
-#     #     # queryset = Problems.objects.filter(id=problem_id)
-#     #     return problem_id
-
-#     # try:
-#     #     problem = Problems.objects.get(pk=problem_id)
-#     # except Problems.DoesNotExist:
-#     #     raise Http404("Problem does not exist")
-#     # # return render(request, 'OJ/problemDetails.html', {'problem': problem})
-#     # return HttpResponse("You are at the details page of problem %s" % problem_id)
-
-#     model = Problem
-#     context_object_name = 'problem' # This means you can change the object name (the current instance (problem_id)) to some other name. The orignal is object.
-#     template_name = 'OJ/problemDetails.html'
-
-
-# class JudgeVerdict(generic.DetailView):
-#     # return HttpResponse("You are at the Judge verdict page for problem %s" % problem_id)
-#     model = Problem
-#     context_object_name = 'Verdict'
-#     template_name = 'OJ/judgeVerdict.html'
-
-
-# class CodeSubmission(generic.DetailView):
-#     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
-
-#     model = Problem
-#     context_object_name = 'problem'
-#     template_name = 'OJ/codeSubmission.html'
-
-
-# class CodeSubmission(forms.Form):
-#     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
-
-#     model = Problem
-#     context_object_name = 'problem'
-#     template_name = 'OJ/codeSubmission.html'
-#     compiler = forms.Select()
-#     userCode  = forms.CharField(label="Enter the code here", max_length = 10000)
-
-
-# from OJ.codeSubmissionForm import CodeSubmission
-# if request.method == "POST":
-#     form = CodeSubmission(request.POST)
-#     if form.is_valid():
-#         return HttpResponseRedirect('problems/<int:id>/code/verdict/')
-#     else:
-#         form = CodeSubmission()
-
-#     return render(request, 'codeSubmission.html', {'form': form})
-
-# form = CodeSubmission()
-# return render(request, "OJ/codeSubmission.html", {'form' : form})
-
-
 def Registration(request):
     form = RegistrationForm2()
     if request.method == 'POST':
         form = RegistrationForm2(request.POST)
         if form.is_valid():
             form.save()
+            user = form.cleaned_data.get('username')
+            messages.success(request, "Account was created for " + user)
+            return redirect("Login")
     context = {'form': form}
     return render(request, 'OJ/registrationTemplate.html', context)
 
