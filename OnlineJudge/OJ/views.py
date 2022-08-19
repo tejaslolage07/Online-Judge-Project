@@ -105,9 +105,9 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 def Registration(request):
-    form = UserCreationForm()
+    form = RegistrationForm2()
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = RegistrationForm2(request.POST)
         if form.is_valid():
             form.save()
     context = {'form': form}
