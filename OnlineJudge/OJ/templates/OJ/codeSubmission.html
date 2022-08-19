@@ -82,13 +82,16 @@
             
             <input role="button" id="submit" class="btn btn-success" type="submit" value="Submit">
         </form> -->
-
-        <form action = "" method = "POST" enctype="multipart/form-data">
+        <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
+            <!-- {{% for fields in form %}}
+            {{ field.label }}
+            {{ fields }}
+            {{% endfor %}} -->
             {{ form }}
             <input type="submit" value="Submit">
         </form>
-        
+
 
         <!-- Optional JavaScript; choose one of the two! -->
 
