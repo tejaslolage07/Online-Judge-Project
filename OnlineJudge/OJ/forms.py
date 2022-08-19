@@ -1,11 +1,8 @@
-from django.shortcuts import render
-from django.http import HttpResponse, Http404
-from django.views import generic
-from django.urls import reverse
 from django import forms
 from django.forms import ModelForm
-from .models import Problem, UserSubmission, TestCase, userData
+from .models import Problem, UserSubmission, TestCase, UserData
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # class CodeSubmission(forms.Form):
 #     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
@@ -33,10 +30,15 @@ class RegistrationForm(ModelForm):
     # password = forms.TextInput()
 
     class Meta:
-        model = userData
+        model = UserData
         fields = ['username', 'password']
-    
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control', 'data-val': 'true', 'data-val-required': 'Please enter your user name'}),
+            'password': forms.TextInput(attrs={'class': 'form-control', 'data-val': 'true', 'data-val-required': 'Please enter your password'}),
+        }
+
+
 class RegistrationForm2(UserCreationForm):
     class Meta:
-        model = UserSubmission
-        fields = ['compiler', 'userCode', 'submitted_at', 'problem']
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
