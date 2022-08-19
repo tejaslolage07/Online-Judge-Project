@@ -4,7 +4,7 @@ from django.views import generic
 from django.urls import reverse
 from django import forms
 from django.forms import ModelForm
-from .models import Problem, UserSubmission, TestCase, userData
+from .models import Problem, UserSubmission, TestCase, UserData
 from django.contrib.auth.forms import UserCreationForm
 
 # class CodeSubmission(forms.Form):
@@ -33,10 +33,16 @@ class RegistrationForm(ModelForm):
     # password = forms.TextInput()
 
     class Meta:
-        model = userData
+        model = UserData
         fields = ['username', 'password']
-    
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control', 'data-val': 'true', 'data-val-required': 'Please enter your user name'}),
+            'password': forms.TextInput(attrs={'class': 'form-control', 'data-val': 'true', 'data-val-required': 'Please enter your password'}),
+        }
+
+
 class RegistrationForm2(UserCreationForm):
     class Meta:
-        model = UserSubmission
-        fields = ['compiler', 'userCode', 'submitted_at', 'problem']
+        model = UserData
+        fields = ['username', 'password1', 'password2']
+        USERNAME_FIELD = 'username'

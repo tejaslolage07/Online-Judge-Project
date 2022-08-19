@@ -14,10 +14,11 @@ compiler_choices = (
     ('Python 3', 'Python'),
 )
 
-class userData(models.Model):
+class UserData(models.Model):
     # userID = models.IntegerField()
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200)
+    userEmail = models.EmailField(max_length=100)
 
 class UserSubmission(models.Model):
 # class Submission(models.Model):

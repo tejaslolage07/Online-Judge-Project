@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from .models import Problem, UserSubmission, TestCase
+from .models import Problem, UserSubmission, TestCase, UserData
 from django.views import generic
 from django.urls import reverse
 from django import forms
@@ -28,7 +28,6 @@ from django.contrib.auth.forms import UserCreationForm
 #     context_object_name = 'login'
 
 
-
 # class ProblemsList(generic.ListView):
 #     ProblemList = Problem.objects.order_by('problemDifficulty')
 #     # template = loader.get_template('OJ/index.html')
@@ -36,7 +35,7 @@ from django.contrib.auth.forms import UserCreationForm
 #     #     ProblemList
 #     # }
 #     # output = ', '.join([q.problem.ProblemName for q in ProblemList])
-    
+
 #     # return render(request, 'OJ/problemList.html', {'ProblemList': ProblemList})
 
 #     template_name = 'OJ/problemList.html'
@@ -47,9 +46,8 @@ from django.contrib.auth.forms import UserCreationForm
 #         return Problem.objects.order_by('problemDifficulty')
 
 
-
 # class ProblemDetails(generic.DetailView):
-    
+
 #     # def get_queryset(self):
 #     #     problem_id = int(self.kwargs['id'])
 #     #     # queryset = Problems.objects.filter(id=problem_id)
@@ -74,48 +72,47 @@ from django.contrib.auth.forms import UserCreationForm
 #     template_name = 'OJ/judgeVerdict.html'
 
 
-    
 # class CodeSubmission(generic.DetailView):
 #     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
-    
+
 #     model = Problem
 #     context_object_name = 'problem'
 #     template_name = 'OJ/codeSubmission.html'
 
-    
+
 # class CodeSubmission(forms.Form):
 #     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
-    
+
 #     model = Problem
 #     context_object_name = 'problem'
 #     template_name = 'OJ/codeSubmission.html'
 #     compiler = forms.Select()
 #     userCode  = forms.CharField(label="Enter the code here", max_length = 10000)
-    
+
 
 # from OJ.codeSubmissionForm import CodeSubmission
-    # if request.method == "POST":
-    #     form = CodeSubmission(request.POST)
-    #     if form.is_valid():
-    #         return HttpResponseRedirect('problems/<int:id>/code/verdict/')
-    #     else:
-    #         form = CodeSubmission()
+# if request.method == "POST":
+#     form = CodeSubmission(request.POST)
+#     if form.is_valid():
+#         return HttpResponseRedirect('problems/<int:id>/code/verdict/')
+#     else:
+#         form = CodeSubmission()
 
-    #     return render(request, 'codeSubmission.html', {'form': form})
-    
+#     return render(request, 'codeSubmission.html', {'form': form})
 
-    # form = CodeSubmission()
-    # return render(request, "OJ/codeSubmission.html", {'form' : form})
+# form = CodeSubmission()
+# return render(request, "OJ/codeSubmission.html", {'form' : form})
 
 
 def Registration(request):
-    form = RegistrationForm2()
+    form = UserCreationForm()
     if request.method == 'POST':
-            form = RegistrationForm2(request.POST)
-            if form.is_valid():
-                form.save()
-    context = {'form':form}
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
     return render(request, 'OJ/registration.html', context)
+
 
 def Login(request):
     context = {}
@@ -128,22 +125,22 @@ def problemsList(request):
         problem_list = Problem.objects.order_by('problemDifficulty')
     except Problem.DoesNotExist:
         raise Http404("Question does not exist")
-    return render(request, 'OJ/problemList.html', {'problem_list' : problem_list})
+    return render(request, 'OJ/problemList.html', {'problem_list': problem_list})
 
 
 def problemDetails(request, id):
     problem = get_object_or_404(Problem, pk=id)
-    return render(request, "OJ/problemDetails.html", {'problem' : problem})
+    return render(request, "OJ/problemDetails.html", {'problem': problem})
 
 
 def codeSubmission(request, id):
     form = CodeSubmission()
     if request.method == 'POST':
-            form = CodeSubmission(request.POST)
-            if form.is_valid():
-                form.save()
-    context = {'form':form}
-            # return HttpResponse("The form is valid. Thanks.")
+        form = CodeSubmission(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    # return HttpResponse("The form is valid. Thanks.")
     return render(request, 'OJ/codeSubmission.html', context)
 
 
