@@ -111,12 +111,12 @@ def Registration(request):
         if form.is_valid():
             form.save()
     context = {'form': form}
-    return render(request, 'OJ/registration.html', context)
+    return render(request, 'OJ/registrationTemplate.html', context)
 
 
 def Login(request):
     context = {}
-    return render(request, "OJ/login.html", context)
+    return render(request, "OJ/loginTemplate.html", context)
 
 
 def problemsList(request):

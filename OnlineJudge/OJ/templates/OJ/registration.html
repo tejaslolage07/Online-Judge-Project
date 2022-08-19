@@ -61,7 +61,22 @@
     <h3>Registration</h3>
     <form action = "" method = "POST">
         {% csrf_token %}
-        {{ form.as_p }} <!-- The .as_p just makes the form appear in paragraphs which is a bit nicer to view-->
+        <!-- The .as_p just makes the form appear in paragraphs which is a bit nicer to view-->
+            <!-- {{field.label}}
+            {{field}} -->
+            {{form.username.label}}
+            {{form.username}}
+            
+            {{form.email.label}}
+            {{form.email}}
+
+            {{form.password1.label}}
+            {{form.password1}}
+
+            {{form.password2.label}}
+            {{form.password2}}
+
+
         <input type="submit" name="Create User">
     </form>
 
