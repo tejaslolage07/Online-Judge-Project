@@ -15,7 +15,8 @@
         <!-- <title>Hello, world!</title> -->
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        {% include './navbar.html' %}
+        <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">Online Judge</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarSupportedContent"
@@ -60,7 +61,7 @@
                         type="submit">Search</button>
                 </form>
             </div>
-        </nav>
+        </nav> -->
 
         <!-- <form action="http://127.0.0.1:8000/problems/1/code/verdict/" method="post">
             {% csrf_token %} {{ form }}
