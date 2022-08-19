@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-# from models.py import Problem, Solution, TestCase
 from django.views import generic
 from django.urls import reverse
 from django import forms
@@ -19,20 +18,25 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class CodeSubmission(ModelForm):
-    userCode = forms.Textarea()
-    compiler = forms.TextInput()
-    submitted_at = forms.DateTimeInput()
-    problem = forms.TextInput()
+    # userCode = forms.Textarea()
+    # compiler = forms.TextInput()
+    # # submitted_at = forms.DateTimeInput()
+    # problem = forms.TextInput()
 
     class Meta:
         model = UserSubmission
-        fields = ['compiler', 'userCode','submitted_at', 'problem']
+        fields = ['compiler', 'userCode', 'submitted_at', 'problem']
 
 
 class RegistrationForm(ModelForm):
-    username = forms.TextInput()
-    password = forms.TextInput()
+    # username = forms.TextInput()
+    # password = forms.TextInput()
 
     class Meta:
         model = userData
         fields = ['username', 'password']
+    
+class RegistrationForm2(UserCreationForm):
+    class Meta:
+        model = UserSubmission
+        fields = ['compiler', 'userCode', 'submitted_at', 'problem']
