@@ -16,10 +16,6 @@ from datetime import datetime
 
 
 class CodeSubmission(ModelForm):
-    # userCode = forms.Textarea()
-    # compiler = forms.TextInput()
-    # # submitted_at = forms.DateTimeInput()
-    # problem = forms.TextInput()
 
     # def save(self, commit=True):
     #     send = super(CodeSubmission, self).save(commit=False)
@@ -30,15 +26,13 @@ class CodeSubmission(ModelForm):
     class Meta:
         model = UserSubmission
         # submitted_at = datetime.now()
-        fields = ['compiler', 'userCode', 'problem']
+        fields = ['compiler', 'userCode']
         widgets = {
-            'userCode': forms.Textarea(attrs={'rows': '22', 'cols': '120', 'data-val': 'true', 'data-val-required': 'Please enter your code here'})
+            'userCode': forms.Textarea(attrs={'rows': '22', 'cols': '128', 'data-val': 'true', 'data-val-required': 'Please enter your code here'})
         }
 
 
 class RegistrationForm(ModelForm):
-    # username = forms.TextInput()
-    # password = forms.TextInput()
 
     class Meta:
         model = UserData

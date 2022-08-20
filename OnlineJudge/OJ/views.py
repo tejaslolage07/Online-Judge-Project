@@ -73,7 +73,6 @@ def logoutUser(request):
 @login_required(login_url='Login')
 def problemsList(request):
     try:
-        # try_problem = Problem.objects.get(pk=1)
         problem_list = Problem.objects.order_by('problemDifficulty')
     except Problem.DoesNotExist:
         raise Http404("Question does not exist")
@@ -88,19 +87,17 @@ def problemDetails(request, id):
 
 @login_required(login_url='Login')
 def codeSubmission(request, id):
+    problemOBJ = Problem.objects.get(id=id)
     form = CodeSubmission()
     if request.method == 'POST':
         form = CodeSubmission(request.POST)
         if form.is_valid():
-            # submitTime = UserSubmission(submitted_at=datetime.now())
-            form.save()
-            # submitTime.save()
+            instance = form.save(commit=False)
+            instance.problem = problemOBJ
+            instance.submitted_at = datetime.now()
+            instance.save()
     context = {'form': form}
-    # return HttpResponse("The form is valid. Thanks.")
     return render(request, 'OJ/codeSubmission.html', context)
-
-# sub = UserSubmission(submitted_at=datetime.now())
-# sub.save()
 
 
 @login_required(login_url='Login')
