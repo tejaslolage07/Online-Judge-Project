@@ -7,6 +7,7 @@ from django import forms
 from .forms import CodeSubmission, RegistrationForm, RegistrationForm2
 from django.views.decorators.csrf import csrf_protect, requires_csrf_token
 from django.contrib.auth.forms import UserCreationForm
+from datetime import datetime
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -24,6 +25,7 @@ from django.contrib.auth.decorators import login_required
     4. submission of code,
     5. Judge verdict
 '''
+
 
 def Registration(request):
     if request.user.is_authenticated:
@@ -55,17 +57,20 @@ def loginPage(request):
                 login(request, user)
                 return redirect('Problems')
             else:
-                messages.info(request, "The username-password combination does not exist")
+                messages.info(
+                    request, "The username-password combination does not exist")
                 return redirect("Login")
         context = {}
         return render(request, "OJ/loginTemplate.html", context)
 
-@login_required(login_url = 'Login')
+
+@login_required(login_url='Login')
 def logoutUser(request):
     logout(request)
     return redirect('Login')
 
-@login_required(login_url = 'Login')
+
+@login_required(login_url='Login')
 def problemsList(request):
     try:
         # try_problem = Problem.objects.get(pk=1)
@@ -74,22 +79,31 @@ def problemsList(request):
         raise Http404("Question does not exist")
     return render(request, 'OJ/problemList.html', {'problem_list': problem_list})
 
-@login_required(login_url = 'Login')
+
+@login_required(login_url='Login')
 def problemDetails(request, id):
     problem = get_object_or_404(Problem, pk=id)
     return render(request, "OJ/problemDetails.html", {'problem': problem})
 
-@login_required(login_url = 'Login')
+
+@login_required(login_url='Login')
 def codeSubmission(request, id):
     form = CodeSubmission()
     if request.method == 'POST':
         form = CodeSubmission(request.POST)
         if form.is_valid():
+            # submitTime = UserSubmission(submitted_at=datetime.now())
             form.save()
+            # submitTime.save()
     context = {'form': form}
     # return HttpResponse("The form is valid. Thanks.")
     return render(request, 'OJ/codeSubmission.html', context)
 
-@login_required(login_url = 'Login')
+# sub = UserSubmission(submitted_at=datetime.now())
+# sub.save()
+
+
+@login_required(login_url='Login')
 def judgeVerdict(request, id):
+    # form.submitted_at = datetime.now()
     return render(request, "OJ/judgeVerdict.html")
