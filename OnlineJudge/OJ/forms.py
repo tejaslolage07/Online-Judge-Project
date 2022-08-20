@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from .models import Problem, UserSubmission, TestCase, UserData
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from datetime import datetime
 
 # class CodeSubmission(forms.Form):
 #     # return HttpResponse("You are at the code submission page of problem %s" % problem_id)
@@ -20,9 +21,19 @@ class CodeSubmission(ModelForm):
     # # submitted_at = forms.DateTimeInput()
     # problem = forms.TextInput()
 
+    # def save(self, commit=True):
+    #     send = super(CodeSubmission, self).save(commit=False)
+    #     send.submitted_at = datetime.now()
+    #     if commit:
+    #         send.save()
+    #     return send
     class Meta:
         model = UserSubmission
-        fields = ['compiler', 'userCode', 'submitted_at', 'problem']
+        # submitted_at = datetime.now()
+        fields = ['compiler', 'userCode', 'problem']
+        widgets = {
+            'userCode': forms.Textarea(attrs={'rows': '22', 'cols': '120', 'data-val': 'true', 'data-val-required': 'Please enter your code here'})
+        }
 
 
 class RegistrationForm(ModelForm):
