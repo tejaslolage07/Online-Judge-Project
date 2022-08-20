@@ -31,10 +31,10 @@ class UserSubmission(models.Model):
     submitted_at = models.DateTimeField("time of submission")
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
 
-    def save(self, *args, **kwargs):
-        now = timezone.now()
-        self.submitted_at = now
-        super(UserSubmission, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     now = timezone.now()
+    #     self.submitted_at = now
+    #     super(UserSubmission, self).save(*args, **kwargs)
 
 
 class TestCase(models.Model):
