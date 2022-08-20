@@ -84,14 +84,14 @@
         </form> -->
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.compiler.label }}
             {{ form.compiler }}
-            <p>{{ form.submitted_at.label }}</p>
-            {{ form.submitted_at }}
-            {{ form.problem.label }}
-            <p>{{ form.problem }}</p>
+            <p id="messages">
+                {% for message in messages %}
+                <FONT COLOR="red">{{message}}</FONT>
+            {% endfor %}</p>
+
             <!-- <textarea rows="22" cols="120">{{ form.userCode }}</textarea> -->
-            {{ form.userCode.label }}:
+            Write your code here:
             <p>{{ form.userCode }}</p>
             <p><input class="btn btn-success" type="submit" value="Submit"></p>
         </form>

@@ -93,9 +93,14 @@ def codeSubmission(request, id):
         form = CodeSubmission(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            instance.problem = problemOBJ
-            instance.submitted_at = datetime.now()
-            instance.save()
+            if instance.compiler == 'Select':
+                messages.info(request, "Please select a compiler")
+                return redirect('Code', id)
+            else:
+                instance.problem = problemOBJ
+                instance.submitted_at = datetime.now()
+                instance.save()
+                return redirect("Verdict", id)
     context = {'form': form}
     return render(request, 'OJ/codeSubmission.html', context)
 
