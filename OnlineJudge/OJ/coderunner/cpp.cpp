@@ -3,10 +3,6 @@ using namespace std;
 
 int main()
 {
-    // Taking input:
-       
-
-    // Algorithm:
-
+    cout << "Hello world";
     return 0;
 }
