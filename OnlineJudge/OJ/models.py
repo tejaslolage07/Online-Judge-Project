@@ -38,6 +38,6 @@ class UserSubmission(models.Model):
 
 
 class TestCase(models.Model):
-    Input = models.CharField(max_length=300)
-    Output = models.CharField(max_length=300)
+    Input = models.CharField(max_length=300, blank=True)
+    Output = models.CharField(max_length=300, blank=True)
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)

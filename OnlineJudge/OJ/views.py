@@ -8,12 +8,10 @@ from .forms import CodeSubmission, RegistrationForm, RegistrationForm2
 from django.views.decorators.csrf import csrf_protect, requires_csrf_token
 from django.contrib.auth.forms import UserCreationForm
 from datetime import datetime
-
 from django.contrib.auth import authenticate, login, logout
-
 from django.contrib import messages
-
 from django.contrib.auth.decorators import login_required
+# from .textout import writeCpp
 
 # from .forms import NameForm
 
@@ -93,6 +91,7 @@ def codeSubmission(request, id):
         form = CodeSubmission(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
+            code = instance.userCode
             if instance.compiler == 'Select':
                 messages.info(request, "Please select a compiler")
                 return redirect('Code', id)
@@ -100,6 +99,7 @@ def codeSubmission(request, id):
                 instance.problem = problemOBJ
                 instance.submitted_at = datetime.now()
                 instance.save()
+                writeCpp(code)
                 return redirect("Verdict", id)
     context = {'form': form}
     return render(request, 'OJ/codeSubmission.html', context)
