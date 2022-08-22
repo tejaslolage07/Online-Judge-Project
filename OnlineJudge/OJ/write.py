@@ -5,11 +5,13 @@
 # 't' - open text file
 # 'b' - open binary mode
 # '+' - open file for read + write
+from .database_fetch import user_code
 
-def writeCpp(code):
-    f = open('OJ/cpp.cpp', 'w')
-    f.write(code)
+def writeCpp(submission_index):
+    f = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner/cpp.cpp', 'w')
+    f.write(user_code(submission_index))
     f.close()
+
 
 # f = open('OJ/cpp.cpp', 'a')
 # f.write()
