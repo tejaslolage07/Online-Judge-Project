@@ -11,6 +11,13 @@ from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+# import sys
+# sys.path.insert(
+#     0, '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner')
+from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases
+from .write import writeCpp
+from .runCpp import main
+
 # from .textout import writeCpp
 
 # from .forms import NameForm
@@ -99,7 +106,6 @@ def codeSubmission(request, id):
                 instance.problem = problemOBJ
                 instance.submitted_at = datetime.now()
                 instance.save()
-                writeCpp(code)
                 return redirect("Verdict", id)
     context = {'form': form}
     return render(request, 'OJ/codeSubmission.html', context)
@@ -107,5 +113,11 @@ def codeSubmission(request, id):
 
 @login_required(login_url='Login')
 def judgeVerdict(request, id):
-    # form.submitted_at = datetime.now()
-    return render(request, "OJ/judgeVerdict.html")
+    writeCpp(54)
+    your_fate = main(1)
+    if your_fate == 1:
+        return render(request, "OJ/judgeVerdictAccepted.html")
+    elif your_fate == 0:
+        return render(request, "OJ/judgeVerdictWrongAns.html")
+    elif your_fate == -1:
+        return render(request, "OJ/judgeVerdictCompilationError.html")

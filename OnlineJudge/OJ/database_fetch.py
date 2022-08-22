@@ -1,7 +1,7 @@
 import sqlite3
 
 
-def userCode(index):
+def user_code(index):
     conn = None
     try:
         conn = sqlite3.connect(
@@ -11,8 +11,36 @@ def userCode(index):
     cur = conn.cursor()
     cur.execute("SELECT * FROM OJ_usersubmission")
     rows = cur.fetchall()
-    code = rows[index][1]
+    code = rows[index-2][1]
     return code
+
+
+def compiler(index):
+    conn = None
+    try:
+        conn = sqlite3.connect(
+            '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/db.sqlite3')
+    except sqlite.Error as e:
+        print(e)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM OJ_usersubmission")
+    rows = cur.fetchall()
+    compiler = rows[index][4]
+    return compiler
+
+
+def problem_number(index):
+    conn = None
+    try:
+        conn = sqlite3.connect(
+            '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/db.sqlite3')
+    except sqlite.Error as e:
+        print(e)
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM OJ_usersubmission")
+    rows = cur.fetchall()
+    problem_number = rows[index][3]
+    return problem_number
 
 
 def input_test_cases(problem_index):
