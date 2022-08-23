@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 # from datetime import datetime
 
 
@@ -30,6 +31,8 @@ class UserSubmission(models.Model):
     # verdict = models.CharField(max_length=300)
     submitted_at = models.DateTimeField("time of submission")
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
 
     # def save(self, *args, **kwargs):
     #     now = timezone.now()

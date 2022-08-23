@@ -5,11 +5,12 @@
 # 't' - open text file
 # 'b' - open binary mode
 # '+' - open file for read + write
-from .database_fetch import user_code
+from .database_fetch import latest_user_code
 
-def writeCpp(submission_index):
+
+def writeCpp(userid):
     f = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner/cpp.cpp', 'w')
-    f.write(user_code(submission_index))
+    f.write(latest_user_code(userid))
     f.close()
 
 
@@ -18,4 +19,3 @@ def writeCpp(submission_index):
 # print(content)
 
 # f.close()
-
