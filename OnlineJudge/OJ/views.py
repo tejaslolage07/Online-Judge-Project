@@ -98,13 +98,13 @@ def codeSubmission(request, id):
         form = CodeSubmission(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            code = instance.userCode
             if instance.compiler == 'Select':
                 messages.info(request, "Please select a compiler")
                 return redirect('Code', id)
             else:
                 instance.problem = problemOBJ
                 instance.submitted_at = datetime.now()
+                instance.user = request.user
                 instance.save()
                 return redirect("Verdict", id)
     context = {'form': form}
@@ -113,7 +113,8 @@ def codeSubmission(request, id):
 
 @login_required(login_url='Login')
 def judgeVerdict(request, id):
-    writeCpp(54)
+    writeCpp(request.user.id)
+    # writeCpp(54)
     your_fate = main(1)
     if your_fate == 1:
         return render(request, "OJ/judgeVerdictAccepted.html")
