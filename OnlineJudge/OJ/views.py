@@ -11,16 +11,10 @@ from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-# import sys
-# sys.path.insert(
-#     0, '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner')
 from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases
-from .write import writeCpp
+from .write_code import writeCpp, writeJava, writePython, writeCode
 from .runCpp import main
 
-# from .textout import writeCpp
-
-# from .forms import NameForm
 
 # Create your views here.
 ''' Will have a view for 
@@ -113,7 +107,8 @@ def codeSubmission(request, id):
 
 @login_required(login_url='Login')
 def judgeVerdict(request, id):
-    writeCpp(request.user.id)
+    # user_selected_compiler = compiler()
+    writeCode(request.user.id)
     # writeCpp(54)
     your_fate = main(1)
     if your_fate == 1:
