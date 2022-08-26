@@ -15,13 +15,13 @@ def writeCpp(userid):
 
 
 def writeJava(userid):
-    k = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner/cpp.cpp', 'w')
+    k = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner/java.java', 'w')
     k.write(latest_user_code(userid))
     k.close()
 
 
 def writePython(userid):
-    l = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner/cpp.cpp', 'w')
+    l = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner/py.py', 'w')
     l.write(latest_user_code(userid))
     l.close()
 
@@ -31,7 +31,7 @@ def writeCode(userid):
         writeCpp(userid)
     elif latest_compiler(userid) == 'Java':
         writeJava(userid)
-    if latest_compiler(userid) == 'Python 3':
+    elif latest_compiler(userid) == 'Python 3':
         writePython(userid)
 
 

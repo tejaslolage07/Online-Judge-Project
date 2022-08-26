@@ -11,9 +11,10 @@ from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases
+from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases, latest_compiler
 from .write_code import writeCpp, writeJava, writePython, writeCode
-from .runCpp import main
+from .runCpp import cppMain
+from .runPython import pythonMain
 
 
 # Create your views here.
@@ -107,10 +108,15 @@ def codeSubmission(request, id):
 
 @login_required(login_url='Login')
 def judgeVerdict(request, id):
-    # user_selected_compiler = compiler()
-    writeCode(request.user.id)
-    # writeCpp(54)
-    your_fate = main(1)
+    user_selected_compiler = latest_compiler(request.user.id)
+    # writeCode(request.user.id)
+    if user_selected_compiler == 'GNU G++ 17':
+        writeCpp(request.user.id)
+        your_fate = cppMain(1)
+    elif user_selected_compiler == 'Python 3':
+        writePython(request.user.id)
+        your_fate = pythonMain(1)
+
     if your_fate == 1:
         return render(request, "OJ/judgeVerdictAccepted.html")
     elif your_fate == 0:
