@@ -56,6 +56,7 @@ def latest_compiler(userid):
     cur = conn.cursor()
     cur.execute("SELECT * FROM OJ_usersubmission")
     rows = cur.fetchall()
+    rowLen = len(rows)
     for i in range(rowLen-1, 0, -1):
         if rows[i][5] == userid:
             return rows[i][4]
