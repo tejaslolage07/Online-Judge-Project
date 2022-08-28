@@ -13,8 +13,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases, latest_compiler
 from .write_code import writeCpp, writeJava, writePython, writeCode
-from .runCpp import cppMain
-from .runPython import pythonMain
+from .runCpp import cppMain, dockerCppMain
+from .runPython import pythonMain, dockerPythonMain
 
 
 # Create your views here.
@@ -112,10 +112,10 @@ def judgeVerdict(request, id):
     # writeCode(request.user.id)
     if user_selected_compiler == 'GNU G++ 17':
         writeCpp(request.user.id)
-        your_fate = cppMain(1)
+        your_fate = dockerCppMain(1)
     elif user_selected_compiler == 'Python 3':
         writePython(request.user.id)
-        your_fate = pythonMain(1)
+        your_fate = dockerPythonMain(1)
 
     if your_fate == 1:
         return render(request, "OJ/judgeVerdictAccepted.html")
