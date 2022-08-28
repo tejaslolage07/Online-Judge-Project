@@ -9,7 +9,7 @@ from .database_fetch import latest_user_code, latest_compiler
 
 
 def writeCpp(userid):
-    f = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner/cpp.cpp', 'w')
+    f = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/CppCoderunner/cpp.cpp', 'w')
     f.write(latest_user_code(userid))
     f.close()
 
@@ -21,7 +21,7 @@ def writeJava(userid):
 
 
 def writePython(userid):
-    l = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner/py.py', 'w')
+    l = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/PythonCoderunner/py.py', 'w')
     l.write(latest_user_code(userid))
     l.close()
 
