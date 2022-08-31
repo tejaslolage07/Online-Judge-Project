@@ -6,7 +6,7 @@ def user_code(index):
     try:
         conn = sqlite3.connect(
             '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/db.sqlite3')
-    except sqlite.Error as e:
+    except sqlite3.Error as e:
         print(e)
     cur = conn.cursor()
     cur.execute("SELECT * FROM OJ_usersubmission")
@@ -20,7 +20,7 @@ def latest_user_code(userid):
     try:
         conn = sqlite3.connect(
             '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/db.sqlite3')
-    except sqlite.Error as e:
+    except sqlite3.Error as e:
         print(e)
     cur = conn.cursor()
     cur.execute("SELECT * FROM OJ_usersubmission")
@@ -37,7 +37,7 @@ def compiler(index):
     try:
         conn = sqlite3.connect(
             '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/db.sqlite3')
-    except sqlite.Error as e:
+    except sqlite3.Error as e:
         print(e)
     cur = conn.cursor()
     cur.execute("SELECT * FROM OJ_usersubmission")
@@ -51,7 +51,7 @@ def latest_compiler(userid):
     try:
         conn = sqlite3.connect(
             '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/db.sqlite3')
-    except sqlite.Error as e:
+    except sqlite3.Error as e:
         print(e)
     cur = conn.cursor()
     cur.execute("SELECT * FROM OJ_usersubmission")
@@ -68,7 +68,7 @@ def problem_number(index):
     try:
         conn = sqlite3.connect(
             '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/db.sqlite3')
-    except sqlite.Error as e:
+    except sqlite3.Error as e:
         print(e)
     cur = conn.cursor()
     cur.execute("SELECT * FROM OJ_usersubmission")
@@ -82,7 +82,7 @@ def input_test_cases(problem_index):
     try:
         conn = sqlite3.connect(
             '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/db.sqlite3')
-    except sqlite.Error as e:
+    except sqlite3.Error as e:
         print(e)
     cur = conn.cursor()
     cur.execute("SELECT * FROM OJ_testcase")
@@ -96,7 +96,7 @@ def output_test_cases(problem_index):
     try:
         conn = sqlite3.connect(
             '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/db.sqlite3')
-    except sqlite.Error as e:
+    except sqlite3.Error as e:
         print(e)
     cur = conn.cursor()
     cur.execute("SELECT * FROM OJ_testcase")
