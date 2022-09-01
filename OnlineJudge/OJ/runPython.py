@@ -16,9 +16,6 @@ def dockerPythonMain(problem_index):
     test_case_output = output_test_cases(problem_index)
 
     try:
-        # cont = client.containers.get('python-container')
-        # cont_state = cont.attrs = ['state']
-        # if cont_state['status'] != 'running':
         subprocess.run('docker start python-container', shell=True)
     except:
         subprocess.run(

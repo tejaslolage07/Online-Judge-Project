@@ -21,6 +21,7 @@ def dockerCppMain(problem_index):
         # if cont_state['status'] != 'running':
         subprocess.run('docker start cpp-container', shell=True)
     except docker.errors.NotFound:
+        subprocess.run("docker pull gcc", shell=True)
         subprocess.run('docker run -dt --name cpp-container gcc', shell=True)
 
     subprocess.run(
