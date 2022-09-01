@@ -5,23 +5,24 @@
 # 't' - open text file
 # 'b' - open binary mode
 # '+' - open file for read + write
+from .base_directory import BASE_DIR
 from .database_fetch import latest_user_code, latest_compiler
 
 
 def writeCpp(userid):
-    f = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/CppCoderunner/cpp.cpp', 'w')
+    f = open((BASE_DIR / 'OJ/CppCoderunner/cpp.cpp'), 'w')
     f.write(latest_user_code(userid))
     f.close()
 
 
 def writeJava(userid):
-    k = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner/java.java', 'w')
+    k = open((BASE_DIR / 'OJ/coderunner/java.java'), 'w')
     k.write(latest_user_code(userid))
     k.close()
 
 
 def writePython(userid):
-    l = open('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/PythonCoderunner/py.py', 'w')
+    l = open((BASE_DIR / 'OJ/PythonCoderunner/py.py'), 'w')
     l.write(latest_user_code(userid))
     l.close()
 

@@ -1,8 +1,9 @@
 import os
+import docker
 import subprocess
 from subprocess import Popen, PIPE
+from .base_directory import BASE_DIR
 from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases
-import docker
 
 
 def doesFileExist(filePathAndName):
@@ -23,7 +24,7 @@ def dockerCppMain(problem_index):
         subprocess.run('docker run -dt --name cpp-container gcc', shell=True)
 
     subprocess.run(
-        ['docker', 'cp', '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/CppCoderunner/cpp.cpp', 'cpp-container:/a.cpp'])
+        ['docker', 'cp', (BASE_DIR / 'OJ/CppCoderunner/cpp.cpp'), 'cpp-container:/a.cpp'])
     compile = subprocess.run('docker exec cpp-container g++ -o out a.cpp',
                              shell=True, capture_output=True)
     if compile.returncode != 0:
@@ -49,14 +50,14 @@ def cppMain(problem_index):
     # source_path = (containerID+':'+'/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/onlinejudge/oj/Cppcoderunner')
     # subprocess.Popen(['docker', 'cp', source_path, '/home/'])
     subprocess.run(
-        ['g++', '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/CppCoderunner/cpp.cpp', '-o', '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/CppCoderunner/a.out'])
-    if doesFileExist('/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/CppCoderunner/a.out'):
+        ['g++', (BASE_DIR / 'OJ/CppCoderunner/cpp.cpp'), '-o', (BASE_DIR / 'OJ/CppCoderunner/a.out')])
+    if doesFileExist((BASE_DIR / 'OJ/CppCoderunner/a.out')):
         test_case_input = input_test_cases(problem_index)
         test_case_output = output_test_cases(problem_index)
         result = subprocess.run(
-            '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/CppCoderunner/a.out', capture_output=True, text=True, input=test_case_input).stdout
+            (BASE_DIR / 'OJ/CppCoderunner/a.out'), capture_output=True, text=True, input=test_case_input).stdout
         subprocess.run(
-            ['rm', '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/CppCoderunner/a.out'])
+            ['rm', (BASE_DIR / 'OJ/CppCoderunner/a.out')])
         if test_case_output == result:
             return 1
         else:

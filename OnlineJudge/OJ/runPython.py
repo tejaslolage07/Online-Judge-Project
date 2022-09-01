@@ -2,6 +2,7 @@ import os
 import docker
 import subprocess
 from subprocess import Popen, PIPE
+from .base_directory import BASE_DIR
 from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases
 
 
@@ -24,7 +25,7 @@ def dockerPythonMain(problem_index):
             'docker run -dt --name python-container python', shell=True)
 
     subprocess.run(
-        ['docker', 'cp', '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/PythonCoderunner/py.py', 'python-container:/a.py'])
+        ['docker', 'cp', (BASE_DIR / 'OJ/PythonCoderunner/py.py'), 'python-container:/a.py'])
     run = subprocess.run('docker exec -i python-container python3 a.py',
                          shell=True, capture_output=True, text=True, input=test_case_input)
     # subprocess.run(['docker', 'exec', 'rm', 'a.py'])
@@ -37,14 +38,10 @@ def dockerPythonMain(problem_index):
 
 
 def pythonMain(problem_index):
-    # process = Popen(
-    #     ['cd', '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ'])
-    # subprocess.run()
-    # try subprocess.run(['python3', '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/coderunner/py.py'], stderr=):
 
     test_case_input = input_test_cases(problem_index)
     test_case_output = output_test_cases(problem_index)
-    result = subprocess.run(['python3', '/Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/OJ/PythonCoderunner/py.py'],
+    result = subprocess.run(['python3', (BASE_DIR / 'OJ/PythonCoderunner/py.py')],
                             capture_output=True, text=True, input=test_case_input)
     answer = result.stdout
     error = result.stderr
