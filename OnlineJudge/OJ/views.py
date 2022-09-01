@@ -96,6 +96,10 @@ def codeSubmission(request, id):
             if instance.compiler == 'Select':
                 messages.info(request, "Please select a compiler")
                 return redirect('Code', id)
+            elif instance.compiler == 'Java':
+                messages.info(
+                    request, "Sorry! Java functionality is currently not available. Please proceed with any other language.")
+                return redirect('Code', id)
             else:
                 instance.problem = problemOBJ
                 instance.submitted_at = datetime.now()
