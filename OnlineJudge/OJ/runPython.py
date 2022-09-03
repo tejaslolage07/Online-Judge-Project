@@ -38,16 +38,16 @@ def dockerPythonMain(problem_index):
 
         run = subprocess.run('docker exec -i python-container python3 a.py',
                             shell=True, capture_output=True, text=True, input=test_case_input)
-        # subprocess.run(['docker', 'exec', 'rm', 'a.py'])
+
         if run.stdout == test_case_output:
             check = 1
-        elif run.stdout != test_case_output:
-            check = 0
-            break
         elif run.stderr != '':
             check = -1
             break
-    subprocess.run(['docker', 'exec', 'rm', './a.py'], shell=True)
+        elif run.stdout != test_case_output:
+            check = 0
+            break
+    subprocess.run(['docker exec python-container rm a.py'], shell=True)
     return check
 
 

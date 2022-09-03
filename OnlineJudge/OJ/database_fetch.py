@@ -66,7 +66,7 @@ def number_of_testcases(problem_index):
     rows = cur.fetchall()
     rowLen = len(rows)
     number = 0
-    for i in range (0, rowLen-1):
+    for i in range (0, rowLen):
             if rows[i][3] == problem_index:
                 number += 1
     return number
@@ -90,7 +90,7 @@ def input_test_cases(problem_index, number_of_already_evaluated):
     cur.execute("SELECT * FROM OJ_testcase")
     rows = cur.fetchall()
     rowLen = len(rows)
-    for i in range(0, rowLen-1):
+    for i in range(0, rowLen):
         if number_of_already_evaluated == 0:
             if rows[i][3] == problem_index:
                 test_case = rows[i][1]
@@ -98,6 +98,7 @@ def input_test_cases(problem_index, number_of_already_evaluated):
         else:
             if rows[i][3] == problem_index:
                 number_of_already_evaluated -= 1
+                continue
 
 
 #def output_test_cases(problem_index):
@@ -117,7 +118,7 @@ def output_test_cases(problem_index, number_of_already_evaluated):
     cur.execute("SELECT * FROM OJ_testcase")
     rows = cur.fetchall()
     rowLen = len(rows)
-    for i in range(0, rowLen-1):
+    for i in range(0, rowLen):
         if number_of_already_evaluated == 0:
             if rows[i][3] == problem_index:
                 test_case = rows[i][2]
@@ -125,3 +126,4 @@ def output_test_cases(problem_index, number_of_already_evaluated):
         else:
             if rows[i][3] == problem_index:
                 number_of_already_evaluated -= 1
+                continue

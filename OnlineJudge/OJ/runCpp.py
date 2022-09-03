@@ -37,7 +37,7 @@ def dockerCppMain(problem_index):
 #        run = subprocess.run('docker exec -i cpp-container ./out',
 #                             input=test_case_input, capture_output=True, text=True, shell=True)
 #        subprocess.run(['docker', 'exec', 'rm', 'out'], shell=True)
-        subprocess.run(['docker', 'exec', 'rm', 'a.cpp'], shell=True)
+#        subprocess.run(['docker', 'exec', 'rm', 'a.cpp'], shell=True)
 #        if run.stdout == test_case_output:
 #            return 1
 #        elif run.stdout != test_case_output:
@@ -54,14 +54,14 @@ def dockerCppMain(problem_index):
                                  input=test_case_input, capture_output=True, text=True, shell=True)
             if run.stdout == test_case_output:
                 check = 1
+            elif run.stderr != '':
+                check = -1
+                break
             elif run.stdout != test_case_output:
                 check = 0
                 break
-            elif run.stderr != '':
-                 check = -1
-                 break
-        subprocess.run(['docker', 'exec', 'rm', 'out'], shell=True)
-        subprocess.run(['docker', 'exec', 'rm', 'a.cpp'], shell=True)
+        subprocess.run(['docker exec cpp-container rm out'], shell=True)
+        subprocess.run(['docker exec cpp-container rm a.cpp'], shell=True)
         return check
 
 
