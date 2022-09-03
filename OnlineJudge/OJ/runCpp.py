@@ -3,7 +3,7 @@ import docker
 import subprocess
 from subprocess import Popen, PIPE
 from .base_directory import BASE_DIR
-from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases
+from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases, number_of_testcases
 
 
 def doesFileExist(filePathAndName):
@@ -11,9 +11,10 @@ def doesFileExist(filePathAndName):
 
 
 def dockerCppMain(problem_index):
-    client = docker.from_env()
-    test_case_input = input_test_cases(problem_index)
-    test_case_output = output_test_cases(problem_index)
+#    client = docker.from_env()
+#    test_case_input = input_test_cases(problem_index)
+#    test_case_output = output_test_cases(problem_index)
+    number_of_testcases_in_out = number_of_testcases(problem_index)
 
     try:
         # cont = client.containers.get('cpp-container')
@@ -27,21 +28,42 @@ def dockerCppMain(problem_index):
     subprocess.run(
         ['docker', 'cp', (BASE_DIR / 'OJ/CppCoderunner/cpp.cpp'), 'cpp-container:/a.cpp'])
     compile = subprocess.run('docker exec cpp-container g++ -o out a.cpp',
-                             shell=True, capture_output=True)
+                         shell=True, capture_output=True)
+    check = 0
     if compile.returncode != 0:
         # if doesFileExist('cpp-container:/home/a.out'):
         return -1
     else:
-        run = subprocess.run('docker exec -i cpp-container ./out',
-                             input=test_case_input, capture_output=True, text=True, shell=True)
+#        run = subprocess.run('docker exec -i cpp-container ./out',
+#                             input=test_case_input, capture_output=True, text=True, shell=True)
+#        subprocess.run(['docker', 'exec', 'rm', 'out'], shell=True)
+        subprocess.run(['docker', 'exec', 'rm', 'a.cpp'], shell=True)
+#        if run.stdout == test_case_output:
+#            return 1
+#        elif run.stdout != test_case_output:
+#            return 0
+#        elif run.stderr != '':
+#            return -1
+        for number_of_already_evaluated in range(0, number_of_testcases_in_out):
+            test_case_input = input_test_cases(
+                problem_index, number_of_already_evaluated)
+            test_case_output = output_test_cases(
+                problem_index, number_of_already_evaluated)
+
+            run = subprocess.run('docker exec -i cpp-container ./out',
+                                 input=test_case_input, capture_output=True, text=True, shell=True)
+            if run.stdout == test_case_output:
+                check = 1
+            elif run.stdout != test_case_output:
+                check = 0
+                break
+            elif run.stderr != '':
+                 check = -1
+                 break
         subprocess.run(['docker', 'exec', 'rm', 'out'], shell=True)
         subprocess.run(['docker', 'exec', 'rm', 'a.cpp'], shell=True)
-        if run.stdout == test_case_output:
-            return 1
-        elif run.stdout != test_case_output:
-            return 0
-        elif run.stderr != '':
-            return -1
+        return check
+
 
 
 def cppMain(problem_index):

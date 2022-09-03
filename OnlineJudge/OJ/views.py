@@ -116,10 +116,10 @@ def judgeVerdict(request, id):
     # writeCode(request.user.id)
     if user_selected_compiler == 'GNU G++ 17':
         writeCpp(request.user.id)
-        your_fate = dockerCppMain(1)
+        your_fate = dockerCppMain(id)
     elif user_selected_compiler == 'Python 3':
         writePython(request.user.id)
-        your_fate = dockerPythonMain(1)
+        your_fate = dockerPythonMain(id)
 
     if your_fate == 1:
         return render(request, "OJ/judgeVerdictAccepted.html")
