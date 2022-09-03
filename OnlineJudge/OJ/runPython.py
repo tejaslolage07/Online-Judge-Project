@@ -3,7 +3,7 @@ import docker
 import subprocess
 from subprocess import Popen, PIPE
 from .base_directory import BASE_DIR
-from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases
+from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases, number_of_testcases
 
 
 def doesFileExist(filePathAndName):
@@ -11,9 +11,8 @@ def doesFileExist(filePathAndName):
 
 
 def dockerPythonMain(problem_index):
-    client = docker.from_env()
-    test_case_input = input_test_cases(problem_index)
-    test_case_output = output_test_cases(problem_index)
+    number_of_testcases_in_out = number_of_testcases(problem_index)
+
 
     try:
         subprocess.run('docker start python-container', shell=True)
@@ -23,21 +22,40 @@ def dockerPythonMain(problem_index):
 
     subprocess.run(
         ['docker', 'cp', (BASE_DIR / 'OJ/PythonCoderunner/py.py'), 'python-container:/a.py'])
-    run = subprocess.run('docker exec -i python-container python3 a.py',
-                         shell=True, capture_output=True, text=True, input=test_case_input)
-    # subprocess.run(['docker', 'exec', 'rm', 'a.py'])
-    if run.stdout == test_case_output:
-        return 1
-    elif (run.stdout != test_case_output and run.stderr == ''):
-        return 0
-    elif run.stderr != '':
-        return -1
+#    run = subprocess.run('docker exec -i python-container python3 a.py',
+#                         shell=True, capture_output=True, text=True, input=test_case_input)
+#    # subprocess.run(['docker', 'exec', 'rm', 'a.py'])
+#    if run.stdout == test_case_output:
+#        return 1
+#    elif (run.stdout != test_case_output and run.stderr == ''):
+#        return 0
+#    elif run.stderr != '':
+#        return -1
+
+    for number_of_already_evaluated in range(0, number_of_testcases_in_out):
+        test_case_input = input_test_cases(problem_index, number_of_already_evaluated)
+        test_case_output = output_test_cases(problem_index, number_of_already_evaluated)
+
+        run = subprocess.run('docker exec -i python-container python3 a.py',
+                            shell=True, capture_output=True, text=True, input=test_case_input)
+        # subprocess.run(['docker', 'exec', 'rm', 'a.py'])
+        if run.stdout == test_case_output:
+            check = 1
+        elif run.stdout != test_case_output:
+            check = 0
+            break
+        elif run.stderr != '':
+            check = -1
+            break
+    subprocess.run(['docker', 'exec', 'rm', './a.py'], shell=True)
+    return check
+
 
 
 def pythonMain(problem_index):
 
-    test_case_input = input_test_cases(problem_index)
-    test_case_output = output_test_cases(problem_index)
+    test_case_input = input_test_cases(problem_index, 0)
+    test_case_output = output_test_cases(problem_index, 0)
     result = subprocess.run(['python3', (BASE_DIR / 'OJ/PythonCoderunner/py.py')],
                             capture_output=True, text=True, input=test_case_input)
     answer = result.stdout
