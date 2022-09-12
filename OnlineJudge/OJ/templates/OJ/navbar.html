@@ -1,10 +1,9 @@
 {% load static %}
 <link rel="stylesheet" href={% static "navbar.css"%}>
-
-<nav>
-  <img src="static 'images/logo.png" alt="logo">
-  <ul>
+<nav class="navbar-nav">
+  <img class="navbar-logo" src="static 'images/logo.png" alt="logo">
+  <ul class="navbar-ul">
     <li class="hello-msg">Hello, {{ request.user }}</li>
-    <li><a href="{% url 'Logout' %}">Logout</a></li>
+    <li><a class="navbar-logout" href="{% url 'Logout' %}">Logout</a></li>
   </ul>
 </nav>
