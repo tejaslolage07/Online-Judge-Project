@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
     <head>
@@ -6,50 +7,29 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1,
             shrink-to-fit=no">
-        <link rel="stylesheet" href="css/problemList.css">
+        <link rel="stylesheet" href={% static "utilities.css" %}>
+        <link rel="stylesheet" href={% static "problemList.css" %}>
     </head>
     <body class="PL-body">
+        {% include './navbar.html' %}
 
         <div class="PL-list-container">
-            <div class="PL-heading"><h1>Problem List</h1></div>
-            <div class="PL-list-header">
+            <div class="PL-heading font-style-rajdhani"><h1>Problem List</h1></div>
+            <div class="PL-list-header font-style-bebas-neue">
                 <div class="PL-header-elements">Problem number</div>
                 <div class="PL-header-elements">Problem name</div>
                 <div class="PL-header-elements">Difficulty</div>
             </div>
-            <div class="PL-list-item-odd">
-                <div class="PL-problem-id">1</div>
-                <div class="PL-problem-name">Two sum</div>
-                <div class="PL-problem-difficulty">Easy</div>
-            </div>
-            <div class="PL-list-item-even">
-                <div class="PL-problem-id">1</div>
-                <div class="PL-problem-name">Two sum</div>
-                <div class="PL-problem-difficulty">Easy</div>
-            </div>
-            <div class="PL-list-item-odd">
-                <div class="PL-problem-id">1</div>
-                <div class="PL-problem-name">Two sum</div>
-                <div class="PL-problem-difficulty">Easy</div>
-            </div>
-            <div class="PL-list-item-even">
-                <div class="PL-problem-id">1</div>
-                <div class="PL-problem-name">Two sum</div>
-                <div class="PL-problem-difficulty">Easy</div>
-            </div>
-            <div class="PL-list-item-odd">
-                <div class="PL-problem-id">1</div>
-                <div class="PL-problem-name">Two sum</div>
-                <div class="PL-problem-difficulty">Easy</div>
-            </div>
-            <div class="PL-list-item-even">
-                <div class="PL-problem-id">1</div>
-                <div class="PL-problem-name">Two sum</div>
-                <div class="PL-problem-difficulty">Easy</div>
-            </div>
+            {% for problem in problem_list %}
+                <div class="PL-list-item font-style-hind">
+                    <div class="PL-problem-id"></div>
+                    <div class="PL-problem-name">
+                        <a class="PL-problem-name" href="{% url 'Details' problem.id %}">{{ problem.problemName }}</a>
+                    </div>
+                    <div class="PL-problem-difficulty" difficulty-value={{ problem.problemDifficulty }}></div>
+                </div>
+            {% endfor %}
         </div>
-
-
         <!-- {% include './navbar.html' %} -->
         <!-- <div class="container">
             <h1 class="PL-h1">Problem List</h1>
@@ -64,5 +44,6 @@
                     {% endfor %}
                 </ul>
             </div> -->
+        <script src={% static "problemList.js" %}></script>
     </body>
 </html>
