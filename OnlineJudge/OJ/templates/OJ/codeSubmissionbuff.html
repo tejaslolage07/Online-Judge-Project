@@ -1,0 +1,52 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Submit your code</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1,
+            shrink-to-fit=no">
+
+        <style type="text/css" media="screen">
+            #editor { 
+                position: absolute;
+                /* top: 300px;
+                right: 300px;
+                bottom: 300px;
+                left: 300px; */
+                height: 500px;
+                width: 100vw;
+            }
+        </style>
+    </head>
+    <body>
+        {% include './navbar.html' %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.compiler }}
+            <p id="messages">
+                {% for message in messages %}
+                <FONT COLOR="red">{{ message }}</FONT>
+                {% endfor %}</p>
+            {{ form.userCode }}
+            <div id="editor"></div>
+
+
+            <!-- <div class="django-ace-widget ace_editor ace_hidpi ace_dark ace-monokai" style="" maxlength="10000" required_id="id_userCode">
+                    <p id="fontcolor">Write your code here:</p>
+                    <p>{{ form.userCode }}</p>
+                </div> -->
+            <p><input class="btn btn-success" type="submit" value="Submit"></p>
+        </form>
+        <script src= {% static "ace-builds/src-noconflict/ace.js" %}></script>
+        <script>
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/monokai");
+            editor.session.setMode("ace/mode/javascript");
+            // form.userCode = editor.getValue();
+            </script>
+        <!-- <script src="Users/tejaslolage/Documents/Programming/Projects/OnlineJudgeProject/OnlineJudge/static/ace-builds/src-noconflict/ace.js"></script> -->
+        <script rel="javascript" src={% static "codeSubmission.js" %}></script>
+    </body>
+</html>
