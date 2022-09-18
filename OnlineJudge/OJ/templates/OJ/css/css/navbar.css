@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Dosis:wght@300&family=Hind:wght@300&family=Ms+Madi&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+}
+.navbar-nav{
+    display: grid;
+    grid-template-columns: 50px calc(100vw - 50px);
+    height: 50px;
+    width: 100vw;
+    background-color: rgb(50, 50, 50);
+}
+.navbar-logo{
+    /* display: inline; */
+}
+.navbar-ul{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.hello-msg{
+    /* font-family: 'Dancing Script', cursive; */
+    /* font-family: 'Dosis', sans-serif; */
+    /* font-family: 'Hind', sans-serif; */
+    font-family: 'Ms Madi', cursive;
+
+    font-size: 30px;
+    color: #fff;
+    margin-right: 20px;
+}
+.navbar-logout{
+    font-family: 'Hind', sans-serif;
+    color: white;
+    text-decoration: none;
+    margin: 0 2vw 0 0;
+}
+.navbar-logout:hover{
+    color:rgb(210, 0, 0);
+}

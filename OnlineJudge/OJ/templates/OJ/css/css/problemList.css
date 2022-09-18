@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script&family=Dosis:wght@300&family=Hind:wght@300&family=Lobster&family=Ms+Madi&family=Pacifico&family=Rajdhani:wght@300&display=swap');    
+*{
+    margin: 0;
+    padding: 0;
+}
+.PL-body{
+    background-color: rgb(25, 25, 25);
+}
+.PL-heading{
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    /* font-style: ; */
+    /* background-color: rgb(25, 25, 25); */
+    /* font-family: 'Dancing Script', cursive; */
+    /* font-family: 'Dosis', sans-serif; */
+    /* font-family: 'Hind', sans-serif; */
+    /* font-family: 'Ms Madi', cursive; */
+    padding: 30px;
+    font-size: 30px;
+}
+.PL-list-container{
+    /* display: grid;
+    grid-template-rows: 40px; */
+    justify-content: center;
+    width: 80vw;
+    height: 90vh;
+    margin: auto;
+}
+.PL-list-header{
+    width: 80vw;
+    height: 40px;
+    display: grid;
+    justify-content: center;
+    color: white;
+    grid-template-columns: 150px 600px 150px;
+    margin: 0px 0px 5px 0px;
+    /* font-family: 'Dancing Script', cursive; */
+    /* font-family: 'Dosis', sans-serif; */
+    /* font-family: 'Hind', sans-serif; */
+    /* font-family: 'Ms Madi', cursive; */
+}
+.PL-header-elements{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+.PL-list-item-odd{
+    width: 80vw;
+    height: 40px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 150px 600px 150px;
+    color: white;
+    background-color: rgb(25, 25, 25);
+    /* font-family: 'Dancing Script', cursive; */
+    /* font-family: 'Dosis', sans-serif; */
+    /* font-family: 'Hind', sans-serif; */
+    /* font-family: 'Ms Madi', cursive; */
+}
+.PL-list-item-even{
+    width: 80vw;
+    height: 40px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 150px 600px 150px;
+    color: white;
+    background-color: rgb(45, 45, 45);
+    /* font-family: 'Dancing Script', cursive; */
+    /* font-family: 'Dosis', sans-serif; */
+    /* font-family: 'Hind', sans-serif; */
+    /* font-family: 'Ms Madi', cursive; */
+}
+.PL-problem-id{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.PL-problem-name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+}
+.PL-problem-name:hover{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #1640fa;
+}
+.PL-problem-difficulty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.PL-problem-difficulty-easy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #24E500;
+}
+.PL-problem-difficulty-medium{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    /* color: rgb(255 192 30); */
+    color: #E0E722;
+}
+.PL-problem-difficulty-hard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    /* color: rgb(255 55 95); */
+    color: #ff0077;
+}
+.PL-heading h1{
+    color: white;
+
+}
+.PL-h1{
+    color: white;
+    justify-content: center;
+    text-align: center;
+}
