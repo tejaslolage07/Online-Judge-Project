@@ -25,10 +25,9 @@ class CodeSubmission(ModelForm):
     #     return send
     class Meta:
         model = UserSubmission
-        # submitted_at = datetime.now()
         fields = ['compiler', 'userCode']
         widgets = {
-            'userCode': forms.Textarea(attrs={'rows': '22', 'cols': '128', 'data-val': 'true', 'data-val-required': 'Please enter your code here'})
+            'userCode': forms.Textarea(attrs={'class': '', 'rows': '22', 'cols': '128', 'data-val': 'true', 'data-val-required': 'Please enter your code here'})
         }
 
 
