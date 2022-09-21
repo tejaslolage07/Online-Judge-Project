@@ -17,5 +17,5 @@ var editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
 editor.session.setMode("ace/mode/javascript");
 
-document.getElementById("")
-document.getElementById("id_userCode").value = editor.getValue()
+// document.getElementById("")
+// document.getElementById("id_userCode").value = editor.getValue()
