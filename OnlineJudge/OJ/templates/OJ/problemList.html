@@ -21,29 +21,15 @@
                 <div class="PL-header-elements">Difficulty</div>
             </div>
             {% for problem in problem_list %}
-                <div class="PL-list-item font-style-hind">
-                    <div class="PL-problem-id"></div>
-                    <div class="PL-problem-name">
-                        <a class="PL-problem-name" href="{% url 'Details' problem.id %}">{{ problem.problemName }}</a>
-                    </div>
-                    <div class="PL-problem-difficulty" difficulty-value={{ problem.problemDifficulty }}></div>
+            <div class="PL-list-item font-style-hind">
+                <div class="PL-problem-id"></div>
+                <div class="PL-problem-name">
+                    <a class="PL-problem-name" href="{% url 'Details' problem.id %}">{{ problem.problemName }}</a>
                 </div>
+                <div class="PL-problem-difficulty" difficulty-value={{ problem.problemDifficulty }}></div>
+            </div>
             {% endfor %}
         </div>
-        <!-- {% include './navbar.html' %} -->
-        <!-- <div class="container">
-            <h1 class="PL-h1">Problem List</h1>
-            <ul class="PL-ul">
-                {% for problem in problem_list %}
-                <ul><strong><a href="{% url 'Details' problem.id %}"
-                            class="PL-a">{{ problem.problemName }}</a></strong></ul>
-                <div class="PL-difficulty">
-                    Difficulty: {{ problem.problemDifficulty }}
-                </div>
-                <br/>
-                    {% endfor %}
-                </ul>
-            </div> -->
         <script src={% static "problemList.js" %}></script>
     </body>
 </html>

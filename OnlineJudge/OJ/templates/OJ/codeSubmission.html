@@ -8,23 +8,83 @@
         <meta name="viewport" content="width=device-width, initial-scale=1,
             shrink-to-fit=no">
 
-        <link rel="stylesheet" href={% static 'style.css' %}>
+
+        <!-- <link rel="stylesheet" href="css/css/codeSubmission.css"> -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href={% static 'css/codeSubmission.css' %}>
+        <style>
+            #id_userCode{
+                display: block;
+            }
+        </style>
     </head>
     <body>
         {% include './navbar.html' %}
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.compiler }}
-            <p id="messages">
-                {% for message in messages %}
-                <FONT COLOR="red">{{ message }}</FONT>
-                {% endfor %}</p>
 
-            <p id="fontcolor">Write your code here:</p>
-            <p>{{ form.userCode }}</p>
-            <p><input class="btn btn-success" type="submit" value="Submit"></p>
+            <div class="CS-all-parent">
+                <div class="CS-compiler-select-parent">
+                    <select id="compiler-select" name="compiler" class="form-select form-select-sm" aria-label=".form-select-sm">
+                        <option selected value="Select">Select Compiler</option>
+                        <option value="GNU G++ 17">GNU G++ 17.3.0</option>
+                        <option value="Python 3">Python3</option>
+                        <option value="Java">Java</option>
+                    </select>
+                </div>
+                <div class="CS-error-message">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}</p>
+                </div>
+                <div class="CS-theme-selector-parent">
+                    <div class="btn-group CS-theme-selector">
+                        <button type="button" class="btn btn-sm btn-info dropdown-toggle CS-theme-selector" data-bs-toggle="dropdown" aria-expanded="false">
+                        Theme
+                        </button>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" onclick="theme('tomorrow')" href="#">tomorrow</a></li>
+                        <li><a class="dropdown-item" onclick="theme('twilight')" href="#">twilight</a></li>
+                        <li><a class="dropdown-item" onclick="theme('monokai')" href="#">monokai</a></li>
+                        </ul>
+                    </div>
+                </div> 
+                <div class="CS-size-selector-parent">
+                    <div class="btn-group CS-size-selector">
+                        <button type="button" class="btn btn-sm btn-warning dropdown-toggle CS-size-selector" data-bs-toggle="dropdown" aria-expanded="false">
+                        Size
+                        </button>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" onclick="size('14')" href="#">14</a></li>
+                        <li><a class="dropdown-item" onclick="size('16')" href="#">16</a></li>
+                        <li><a class="dropdown-item" onclick="size('18')" href="#">18</a></li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+
+                <div class="CS-editor-parent">
+                    <div type="text" id="editor"></div>
+                </div>
+            
+
+                <!-- <div class="django-ace-widget ace_editor ace_hidpi ace_dark ace-monokai" style="" maxlength="10000" required_id="id_userCode">
+                        <p id="fontcolor">Write your code here:</p>
+                    </div> -->
+                    <div class="CS-submit-button-parent">
+                        <input class="btn btn-success" onclick="submit()" type="submit" value="Submit">
+                        <div class="CS-temp-text-input">
+                            {{ form.userCode }}
+                        </div>
+                    </div>
         </form>
 
-        <script rel="javascript" src={% static "codeSubmission.js" %}></script>
+        <!-- The below lines should be in order only because otherwise codeSubmission.js will look for the output from ace.js which will not be present and hence, the real output won't be correct. -->
+        <script rel="javascript" src={% static "ace-builds/src-noconflict/ace.js" %} type="text/javascript" charset="utf-8"></script>   
+        <script rel="javascript" src={% static "js/codeSubmission.js" %}></script>
+        <!-- <script src="ace/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> -->
+        <!-- <script src="js/js/codeSubmission.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
     </body>
 </html>
