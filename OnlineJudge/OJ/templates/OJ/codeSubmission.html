@@ -11,10 +11,17 @@
 
         <!-- <link rel="stylesheet" href="css/css/codeSubmission.css"> -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href={% static 'css/codeSubmission.css' %}>
+        <link rel="stylesheet" href="{% static 'css/codeSubmission.css' %}">
         <style>
+            .CS-temp-text-input{
+                display: none;
+            }
             #id_userCode{
-                display: block;
+                display: none;
+                padding: none;
+                border: none;
+                margin: none;
+                cursor: none;
             }
         </style>
     </head>
@@ -55,9 +62,9 @@
                         Size
                         </button>
                         <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" onclick="size('14')" href="#">14</a></li>
-                        <li><a class="dropdown-item" onclick="size('16')" href="#">16</a></li>
-                        <li><a class="dropdown-item" onclick="size('18')" href="#">18</a></li>
+                        <li><a class="dropdown-item" onclick="size('14px')" value="14" href="#">14</a></li>
+                        <li><a class="dropdown-item" onclick="size('16px')" value="16" href="#">16</a></li>
+                        <li><a class="dropdown-item" onclick="size('18px')" value="18" href="#">18</a></li>
                         </ul>
                     </div>
                 </div>
@@ -80,8 +87,8 @@
         </form>
 
         <!-- The below lines should be in order only because otherwise codeSubmission.js will look for the output from ace.js which will not be present and hence, the real output won't be correct. -->
-        <script rel="javascript" src={% static "ace-builds/src-noconflict/ace.js" %} type="text/javascript" charset="utf-8"></script>   
-        <script rel="javascript" src={% static "js/codeSubmission.js" %}></script>
+        <script rel="javascript" src="{% static 'ace-builds/src-noconflict/ace.js' %}" type="text/javascript" charset="utf-8"></script>   
+        <script rel="javascript" src="{% static 'js/codeSubmission.js' %}"></script>
         <!-- <script src="ace/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script> -->
         <!-- <script src="js/js/codeSubmission.js"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

@@ -26,7 +26,6 @@ setInterval(updateCode, 100);
 
 function updateCode() {
     document.getElementById("id_userCode").value = editor.getValue();
-    console.log("Updated.");
 }
 
 function compiler() {
@@ -38,6 +37,7 @@ function compiler() {
     if (compiler_name === "Java") language = "java";
     editor.session.setMode("ace/mode/" + language);
 }
+
 compiler_select.onchange = compiler;
 compiler();
 
@@ -47,6 +47,7 @@ function theme(theme) {
 
 function size(selected_size) {
     document.getElementById("editor").style.fontSize = selected_size;
+    console.log("Size changed.")
 }
 
 // document.getElementById("")
