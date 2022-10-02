@@ -7,8 +7,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1,
             shrink-to-fit=no">
-        <link rel="stylesheet" href={% static "utilities.css" %}>
-        <link rel="stylesheet" href={% static "problemList.css" %}>
+        <link rel="stylesheet" href="{% static 'utilities.css' %}">
+        <link rel="stylesheet" href="{% static 'problemList.css' %}">
     </head>
     <body class="PL-body">
         {% include './navbar.html' %}
@@ -30,6 +30,6 @@
             </div>
             {% endfor %}
         </div>
-        <script src={% static "problemList.js" %}></script>
+        <script src="{% static 'problemList.js' %}"></script>
     </body>
 </html>
