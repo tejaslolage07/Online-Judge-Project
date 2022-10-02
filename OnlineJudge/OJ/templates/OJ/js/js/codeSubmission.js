@@ -47,7 +47,6 @@ function theme(theme) {
 
 function size(selected_size) {
     document.getElementById("editor").style.fontSize = selected_size;
-    console.log("Size changed.")
 }
 
 // document.getElementById("")
