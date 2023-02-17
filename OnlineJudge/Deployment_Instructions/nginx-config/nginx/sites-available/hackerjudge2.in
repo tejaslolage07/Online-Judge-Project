@@ -1,0 +1,29 @@
+# Force http to https
+server {
+    server_name hackerjudge.in www.hackerjudge.in; 
+    return 301 https://$host/problems/;
+}
+
+# NGINX server block
+server {
+    
+    server_name hackerjudge.in www.hackerjudge.in;
+
+    # Serve static files
+    location /static/ {
+        root /home/ubuntu/Online-Judge-Project/OnlineJudge;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/Online-Judge-Project/OnlineJudge/OnlineJudge.sock;
+    }
+    listen 80; # managed by Certbot
+    listen 443 ssl;
+
+    ssl_certificate /etc/letsencrypt/live/www.hackerjudge.in/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/www.hackerjudge.in/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    
+}

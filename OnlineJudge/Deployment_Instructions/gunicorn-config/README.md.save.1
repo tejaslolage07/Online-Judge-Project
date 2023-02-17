@@ -1,0 +1,13 @@
+
+# For virtualenv:
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install python3-pip
+sudo pip3 install virtualenv
+virtualenv /opt/envs/OnlineJudge (at directory Online-Judge-Project)
+source /opt/envs/OnlineJudge/bin/activate
+
+# For gunicorn:
+pip3 install gunicorn
+cd /home/ubuntu/Online-Judge-Project/OnlineJudge/; gunicorn --reload --daemon --workers 3 --bind unix:/home/ubuntu/Online-Judge-Project/OnlineJudge/OnlineJudge.sock OnlineJudge.wsgi
+(Remember that gunicorn only works in the directory Online-Judge-Project/OnlineJudge/ (The one where manage.py exists))
