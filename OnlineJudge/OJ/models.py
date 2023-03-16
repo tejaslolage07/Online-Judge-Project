@@ -5,8 +5,8 @@ from django.conf import settings
 
 
 class Problem(models.Model):
-    problemStatement = models.CharField(max_length=500)
-    problemName = models.CharField(max_length=50)
+    problemStatement = models.CharField(max_length=20000)
+    problemName = models.CharField(max_length=500)
     problemDifficulty = models.CharField(max_length=100)
 
 
@@ -17,7 +17,6 @@ compiler_choices = (
     ('Python 3', 'Python'),
 )
 
-
 class UserData(models.Model):
     username = models.CharField(max_length=200)
     password = models.CharField(max_length=200)
@@ -25,9 +24,9 @@ class UserData(models.Model):
 
 
 class UserSubmission(models.Model):
-    userCode = models.CharField(max_length=10000)
+    userCode = models.CharField(max_length=100000)
     compiler = models.CharField(
-        max_length=20, choices=compiler_choices, default='Select')
+        max_length=50, choices=compiler_choices, default='Select')
     # verdict = models.CharField(max_length=300)
     submitted_at = models.DateTimeField("time of submission")
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
@@ -41,6 +40,6 @@ class UserSubmission(models.Model):
 
 
 class TestCase(models.Model):
-    Input = models.CharField(max_length=300, blank=True)
-    Output = models.CharField(max_length=300, blank=True)
+    Input = models.CharField(max_length=1000, blank=True)
+    Output = models.CharField(max_length=1000, blank=True)
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
