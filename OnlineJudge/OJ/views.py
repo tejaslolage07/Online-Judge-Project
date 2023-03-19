@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from .database_fetch import problem_number, compiler, user_code, input_test_cases, output_test_cases, latest_compiler
 from .write_code import writeCpp, writeJava, writePython, writeCode
 from .runCpp import cppMain, dockerCppMain
-from .runPython import pythonMain, dockerPythonMain
+from .runPython import dockerPythonMain
 
 
 # Create your views here.
@@ -113,7 +113,6 @@ def codeSubmission(request, id):
 @login_required(login_url='Login')
 def judgeVerdict(request, id):
     user_selected_compiler = latest_compiler(request.user.id)
-    # writeCode(request.user.id)
     if user_selected_compiler == 'GNU G++ 17':
         writeCpp(request.user.id)
         your_fate = dockerCppMain(id)
