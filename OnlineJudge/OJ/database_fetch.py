@@ -20,8 +20,8 @@ def latest_user_code(userid):
     rows = cur.fetchall()
     rowLen = len(rows)
     for i in range(rowLen-1, 0, -1):
-        if rows[i][5] == userid:
-            return rows[i][1]
+        if rows[i][4] == userid:
+            return rows[i][5]
             break
 
 
@@ -43,9 +43,8 @@ def latest_compiler(userid):
     rows = cur.fetchall()
     rowLen = len(rows)
     for i in range(rowLen-1, 0, -1):
-        if rows[i][5] == userid:
-            return rows[i][4]
-            break
+        if rows[i][4] == userid:
+            return rows[i][3]
 
 
 def problem_number(index):
@@ -67,7 +66,7 @@ def number_of_testcases(problem_index):
     rowLen = len(rows)
     number = 0
     for i in range (0, rowLen):
-            if rows[i][3] == problem_index:
+            if rows[i][2] == problem_index:
                 number += 1
     return number
 
@@ -92,23 +91,13 @@ def input_test_cases(problem_index, number_of_already_evaluated):
     rowLen = len(rows)
     for i in range(0, rowLen):
         if number_of_already_evaluated == 0:
-            if rows[i][3] == problem_index:
+            if rows[i][2] == problem_index:
                 test_case = rows[i][1]
                 return test_case
         else:
-            if rows[i][3] == problem_index:
+            if rows[i][2] == problem_index:
                 number_of_already_evaluated -= 1
                 continue
-
-
-#def output_test_cases(problem_index):
-#    conn = sqlite3.connect(
-#        (BASE_DIR / 'db.sqlite3'))
-#    cur = conn.cursor()
-#    cur.execute("SELECT * FROM OJ_testcase")
-#    rows = cur.fetchall()
-#    test_cases = rows[problem_index-1][2]
-#    return test_cases
 
 
 def output_test_cases(problem_index, number_of_already_evaluated):
@@ -120,10 +109,9 @@ def output_test_cases(problem_index, number_of_already_evaluated):
     rowLen = len(rows)
     for i in range(0, rowLen):
         if number_of_already_evaluated == 0:
-            if rows[i][3] == problem_index:
-                test_case = rows[i][2]
-                return test_case
+            if rows[i][2] == problem_index:
+                return rows[i][3]
         else:
-            if rows[i][3] == problem_index:
+            if rows[i][2] == problem_index:
                 number_of_already_evaluated -= 1
                 continue
