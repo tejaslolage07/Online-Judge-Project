@@ -18,7 +18,8 @@ function setRed() {
 
 
 let difficulty = parseInt(problem_name.getAttribute("target"));
+console.log(difficulty);
 if (difficulty === 5) setRed();
-else if (3 <= difficulty < 5) setYellow();
+else if (3 <= difficulty && difficulty < 5) setYellow();
 else setGreen();
 
